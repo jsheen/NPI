@@ -117,61 +117,8 @@ for param_set in param_sets:
     J.add_edge(('I', 'S'), ('I', 'E'), rate = beta, weight_label='transmission_weight')
     J_treat = nx.DiGraph()
     J_treat.add_edge(('I', 'S'), ('I', 'E'), rate = ((1 - effect) * beta), weight_label='transmission_weight')
-    
-    # Find day on average when expected_It_N of active infections (1000 sims) -
-    nsim = 1000
-    I_series = []
-    while (len(I_series) < nsim):
-        if (len(I_series) % 100 == 0):
-            print(len(I_series))
-        continue_loop = True
-        while (continue_loop):
-            z = []
-            for i in range(N_cluster):
-                deg = 0
-                deg = np.random.negative_binomial(k_overdispersion, p)
-                z.append(deg)
-            for i in range(len(z)):
-                if (z[i] == 0):
-                    z[i] == 1
-            if (sum(z) % 2 == 0):
-                continue_loop = False
-        G=nx.configuration_model(z)
-        G=nx.Graph(G)
-        G.remove_edges_from(nx.selfloop_edges(G))
-        node_attribute_dict = {node: 1 for node in G.nodes()}
-        edge_attribute_dict = {edge: 1 for edge in G.edges()}
-        nx.set_node_attributes(G, values=node_attribute_dict, name='expose2infect_weight')
-        nx.set_edge_attributes(G, values=edge_attribute_dict, name='transmission_weight')
-        IC = defaultdict(lambda: 'S')
-        for node in range(initial_infections_per_cluster):
-            IC[node] = 'I'
-        t, S, E, I, R = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax = 200)
-        next_t = 0
-        to_add_row = []
-        for t_dex in range(len(t)):
-            if t[t_dex] >= next_t:
-                to_add_row.append(I[t_dex])
-                next_t += 1
-        I_series.append(to_add_row)
 
-    med_t_one_pct = None
-    # Find first day of sim where the ave. num. of infects >= expected_It_N ---
-    for day_dex in range(nsim):
-        focal_dist = []
-        for I_series_dex in range(len(I_series)):
-            if len(I_series[I_series_dex]) > day_dex:
-                focal_dist.append(I_series[I_series_dex][day_dex] / N_cluster)
-        if len(focal_dist) <= 100:
-            raise NameError("Not enough simulations (<10%) to get average number of infections on this day.")
-        print(len(focal_dist))
-        print(statistics.mean(focal_dist))
-        if statistics.mean(focal_dist) >= expected_It_N:
-            med_t_one_pct = day_dex
-            break
-    """
     med_t_one_pct = 28
-    """
     
     # Set threshold value of number of infections at time t -------------------
     threshold = 1
