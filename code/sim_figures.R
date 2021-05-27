@@ -1,7 +1,7 @@
 require(reshape2)
 require(ggplot2)
 
-lb <- read.csv("~/Desktop/lb_ttest.csv")
+lb <- read.csv("~/NPI/code_output/tables/ttest.csv")
 
 # Sample size vs. overdispersion figure ----------------------------------------
 param_sets <- list(c(1.5, 1000, 0.4, 100),
@@ -111,15 +111,31 @@ ggplot() +
 
 
 # Number of clusters needed if we wait three generations -----------------------
-lb2 <- read.csv("~/Desktop/lb_gen2.csv")
-lb3 <- read.csv("~/Desktop/lb_gen3.csv")
+lb2 <- read.csv("~/NPI/code_output/tables/lb_gen2.csv")
+lb3 <- read.csv("~/NPI/code_output/tables/lb_gen3.csv")
 param_sets <- list()
 param_sets_dex <- 1
 R0s <- c(1.5, 2)
-Ns <- c(1000, 10000)
+Ns <- c(1000)
 ks <- c(0.1, 0.4, 0.7)
 effects <- c(0.2, 0.4)
 nsamples <- c(100, 1000)
+for (R0 in R0s) {
+  for (N in Ns) {
+    for (k in ks) {
+      for (effect in effects) {
+        for (nsample in nsamples) {
+          if (!(k == 0.1 & N == 10000 & R0 == 1.5)) {
+            param_sets[[param_sets_dex]] <- c(R0, N, k, effect, nsample)
+            param_sets_dex <- param_sets_dex + 1
+          }
+        }
+      }
+    }
+  }
+}
+Ns <- c(100)
+nsamples <- c(10, 50, 100)
 for (R0 in R0s) {
   for (N in Ns) {
     for (k in ks) {
@@ -156,10 +172,22 @@ toplot$x <- factor(c("First Gen.", "Second Gen.", "Third Gen."), levels=c("First
 toplot_m <- melt(toplot, id.vars="x")
 ggplot() +
   geom_line(data = toplot_m, aes(x = x, y = value, group = variable), col='dodgerblue2')+theme_bw()+
-  labs(title = "Required Sample Size vs. Sampling Time") + labs(y = "Number of Clusters Per Arm") + 
+  labs(title = "C) Required Sample Size vs. Sampling Time (n=10000)") + labs(y = "Number of Clusters Per Arm") + 
   labs(x = "Sampling Time After Intervention")+
   scale_x_discrete(expand = c(0.05, 0.05))
 
+toplot_t <- data.frame(t(toplot))
+toplot_t <- toplot_t[1:(nrow(toplot_t) - 1),]
+as.numeric(toplot_t$two[which(toplot_t$two < toplot_t$three)]) - as.numeric(toplot_t$three[which(toplot_t$two < toplot_t$three)])
+which((toplot$two < toplot$three))
+param_sets[[29]]
+param_sets[[30]]
+param_sets[[34]]
+param_sets[[45]]
+param_sets[[47]]
+param_sets[[48]]
+param_sets[[50]]
+param_sets[[52]]
 toplotsm <- data.frame(t(toplotsm))
 toplotsm$x <- factor(c("First Gen.", "Second Gen.", "Third Gen."), levels=c("First Gen.", "Second Gen.", "Third Gen."))
 toplotsm_m <- melt(toplotsm, id.vars="x")
