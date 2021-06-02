@@ -111,8 +111,8 @@ ggplot() +
 
 
 # Number of clusters needed if we wait three generations -----------------------
-lb2 <- read.csv("~/NPI/code_output/tables/lb_gen2.csv")
-lb3 <- read.csv("~/NPI/code_output/tables/lb_gen3.csv")
+lb2 <- read.csv("~/NPI/code_output/tables/gen2.csv")
+lb3 <- read.csv("~/NPI/code_output/tables/gen3.csv")
 param_sets <- list()
 param_sets_dex <- 1
 R0s <- c(1.5, 2)
@@ -188,11 +188,12 @@ param_sets[[47]]
 param_sets[[48]]
 param_sets[[50]]
 param_sets[[52]]
-toplotsm <- data.frame(t(toplotsm))
-toplotsm$x <- factor(c("First Gen.", "Second Gen.", "Third Gen."), levels=c("First Gen.", "Second Gen.", "Third Gen."))
-toplotsm_m <- melt(toplotsm, id.vars="x")
+
+toplot_m <- data.frame(t(toplot_m))
+toplot_m$x <- factor(c("First Gen.", "Second Gen.", "Third Gen."), levels=c("First Gen.", "Second Gen.", "Third Gen."))
+toplot_m <- melt(toplot_m, id.vars="x")
 ggplot() +
-  geom_line(data = toplotsm_m, aes(x = x, y = value, group = variable), col='dodgerblue2')+theme_bw()+
+  geom_line(data = toplot_m, aes(x = x, y = value, group = variable), col='dodgerblue2')+theme_bw()+
   labs(title = "Required Sample Size vs. Community Size") + 
   #labs(y = "Number of Clusters Per Arm") + 
   #labs(x = "Community Size (N)")+
