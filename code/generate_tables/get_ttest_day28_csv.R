@@ -10,7 +10,7 @@ param_sets <- c()
 param_sets_dex <- 1
 rts <- c(1.5, 2)
 overdispersions <- c(0.7, 0.4, 0.1)
-clusters <- c(1000, 10000)
+clusters <- c(1000)
 effects <- c(0.2, 0.4)
 eits <- c(0.005)
 nsamples <- c(100, 1000)
@@ -20,8 +20,8 @@ for (i in clusters) {
       for (l in overdispersions) {
         for (m in effects) {
           for (n in nsamples) {
-              param_sets[[param_sets_dex]] <- list(i, j, k, l , m, n)
-              param_sets_dex <- param_sets_dex + 1
+            param_sets[[param_sets_dex]] <- list(i, j, k, l , m, n)
+            param_sets_dex <- param_sets_dex + 1
           }
         }
       }
@@ -50,6 +50,7 @@ for (i in clusters) {
 }
 final_df <- list()
 final_df_dex <- 1
+# Iterate through all parameters ----------------------------------------------
 for (param_set in param_sets) {
   N_cluster <- param_set[[1]][1]
   tgt_R0 <- param_set[[2]][1]
@@ -59,10 +60,11 @@ for (param_set in param_sets) {
   nsample <- param_set[[6]][1]
   It_It1con_It1trt <- read.csv(paste0("~/NPI/code_output/res/", tgt_R0, "_", N_cluster, "_", k_overdispersion, "_", effect, "_", expected_It_N, "_day28.csv"), header=F)
   adjustment <- unname(unlist(It_It1con_It1trt[nrow(It_It1con_It1trt),][1] / 3000))
+  inter_day <- unname(unlist(It_It1con_It1trt[nrow(It_It1con_It1trt),][4]))
   It_It1con_It1trt <- It_It1con_It1trt[1:(nrow(It_It1con_It1trt) - 1),]
-  sufficient_ncluster_res <- read.csv(paste0("~/NPI/code_output/res/res_", tgt_R0, "_", N_cluster, "_", k_overdispersion, "_", effect, "_", expected_It_N, "_", nsample, "_day28.csv"), header=F)
+  sufficient_ncluster_res <- read.csv(paste0("~/NPI/code_output/res/res_", tgt_R0, "_", N_cluster, "_", k_overdispersion, "_", effect, "_", expected_It_N, "_", nsample, "_ttest_day28.csv"), header=F)
   sufficient_ncluster <- unname(unlist(sufficient_ncluster_res))
-  if (sufficient_ncluster == 1000) {
+  if (sufficient_ncluster == 1000 | sufficient_ncluster == -1) {
     sufficient_ncluster <- ">=1000"
     adjusted_sufficient_ncluster <- ">=1000"
   } else {
@@ -97,8 +99,8 @@ for (param_set in param_sets) {
                            k1=k_overdispersion, k0=k_overdispersion, # Need to have read in this function from Lee's script
                            m=nsample, n=N_cluster, EIt=(mean_It / N_cluster),
                            pow=.8, alpha=.05, N=NULL)
-  new_row <- data.frame(matrix(nrow=1, ncol=19))
-  colnames(new_row) <- c("N", "E_It", "R0", "k", "effect", "mean_Rt0", 
+  new_row <- data.frame(matrix(nrow=1, ncol=20))
+  colnames(new_row) <- c("E_It", "N", "R0", "k", "effect", "inter_day", "mean_Rt0", 
                          "var_Rt0", "mean_Rt1", "var_Rt1", 
                          "mean_It", "var_It", "mean_It1_con", "var_It1_con", "mean_It1_trt", "var_It1_trt",
                          "nsample", "lower_bound",
@@ -109,6 +111,7 @@ for (param_set in param_sets) {
   new_row$k <- k_overdispersion
   new_row$N <- N_cluster
   new_row$nsample <- nsample
+  new_row$inter_day <- inter_day
   new_row$mean_Rt0 <- mean_Rt0
   new_row$var_Rt0 <- var_Rt0
   new_row$mean_Rt1 <- mean_Rt1

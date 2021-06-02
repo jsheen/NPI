@@ -36,10 +36,7 @@ for i in rts:
                 for m in eits:
                     for n in nsamples:
                         if not (k == 10000 and j == 0.1 and i == 1.5):
-                            if k == 10000 and j == 0.1 and i == 2:
-                                param_sets.append([i, j, k, l , 0.0045, n])
-                            else:
-                                param_sets.append([i, j, k, l , m, n])
+                            param_sets.append([i, j, k, l , m, n])
 clusters = [100]
 eits = [0.02]
 nsamples = [10, 50, 100]

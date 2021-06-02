@@ -40,20 +40,31 @@ for i in rts:
                 for m in eits:
                     param_sets.append([i, j, k, l , m])
 # Test that all the transmissions are same ------------------------------------
-diffs = []
+diffs_beta = []
+diffs_t = []
 for param_set in param_sets:
     tgt_R0 = param_set[0]
     N_cluster = param_set[2]
     k_overdispersion = param_set[1]
     effect = param_set[3]
     expected_It_N = param_set[4]
-    It_It1con_It1trt_hE = pd.read_csv("/Users/jsheen/Desktop/res/" + str(tgt_R0) + "_" + str(N_cluster) + "_" + str(k_overdispersion) + "_" + str(0.4) + "_" + str(expected_It_N) + ".csv", header=None)
+    It_It1con_It1trt_hE = pd.read_csv(home + "/NPI/code_output/res/" + str(tgt_R0) + "_" + str(N_cluster) + "_" + str(k_overdispersion) + "_" + str(0.4) + "_" + str(expected_It_N) + ".csv", header=None)
     b_hE = It_It1con_It1trt_hE.iloc[3000, 2]
-    It_It1con_It1trt_lE = pd.read_csv("/Users/jsheen/Desktop/res/" + str(tgt_R0) + "_" + str(N_cluster) + "_" + str(k_overdispersion) + "_" + str(0.2) + "_" + str(expected_It_N) + ".csv", header=None)
+    t_hE = It_It1con_It1trt_hE.iloc[3000, 3]
+    It_It1con_It1trt_lE = pd.read_csv(home + "/NPI/code_output/res/" + str(tgt_R0) + "_" + str(N_cluster) + "_" + str(k_overdispersion) + "_" + str(0.2) + "_" + str(expected_It_N) + ".csv", header=None)
     b_lE = It_It1con_It1trt_lE.iloc[3000, 2]
-    diffs.append((b_hE - b_lE))
-plt.hist(diffs)
+    t_lE = It_It1con_It1trt_lE.iloc[3000, 3]
+    diffs_beta.append((b_hE - b_lE))
+    diffs_t.append((t_lE - t_hE))
+# Plot of distribution of diffs in beta ---------------------------------------
+plt.hist(diffs_beta)
 plt.show()
-max(diffs)
-min(diffs)
-np.median(diffs)
+max(diffs_beta)
+min(diffs_beta)
+np.average(np.abs(diffs_beta))
+# Plot of distribution of diffs in t ------------------------------------------
+plt.hist(diffs_t)
+plt.show()
+max(diffs_t)
+min(diffs_t)
+np.average(np.abs(diffs_t))

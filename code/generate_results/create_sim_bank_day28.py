@@ -12,12 +12,12 @@ Created on Tue Jan 26 20:40:47 2021
 
 # Import libraries and set seeds ----------------------------------------------
 import numpy as np
+import random
 import matplotlib.pyplot as plt
 import statistics
 import networkx as nx
 from collections import defaultdict, Counter
 import EoN
-import random
 import math
 from pathlib import Path
 home = str(Path.home())
@@ -26,7 +26,7 @@ gen = np.random.Generator(np.random.PCG64(1))
 # Create parameter sets to run ------------------------------------------------
 rts = [1.5, 2]
 overdispersions = [0.1, 0.4, 0.7]
-clusters = [1000, 10000]
+clusters = [1000]
 effects = [0.2, 0.4]
 eits = [0.005]
 param_sets = []
@@ -35,10 +35,7 @@ for i in rts:
         for k in clusters:
             for l in effects:
                 for m in eits:
-                    if (k == 10000 and j == 0.1):
-                        param_sets.append([i, j, k, l , 0.0045])
-                    else:
-                        param_sets.append([i, j, k, l , m])
+                    param_sets.append([i, j, k, l , m])
 clusters = [100]
 eits = [0.02]
 param_sets = []

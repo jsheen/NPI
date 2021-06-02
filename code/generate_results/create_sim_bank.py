@@ -11,12 +11,12 @@ Created on Tue Jan 26 20:40:47 2021
 
 # Import libraries and set seeds ----------------------------------------------
 import numpy as np
+import random
 import matplotlib.pyplot as plt
 import statistics
 import networkx as nx
 from collections import defaultdict, Counter
 import EoN
-import random
 import math
 from pathlib import Path
 home = str(Path.home())
