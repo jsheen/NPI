@@ -135,4 +135,4 @@ for (param_set in param_sets) {
   final_df_dex <- final_df_dex + 1
 }
 final_df <- do.call(rbind, final_df)
-write.csv(final_df, "~/NPI/code_output/tables/gen2.csv")
+write.csv(final_df, "~/NPI/code_output/tables/ttest_gen2.csv")

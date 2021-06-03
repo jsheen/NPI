@@ -5,7 +5,7 @@ Created on Wed Jun  2 23:46:59 2021
 
 @author: Justin Sheen
 
-@description: script for plotting solely the legend.
+@description: script for plotting solely the legend of simulation figures.
 """
 
 # Plot just the legend --------------------------------------------------------
