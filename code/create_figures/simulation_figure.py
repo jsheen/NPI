@@ -6,13 +6,13 @@ Created on Wed Mar 31 17:15:24 2021
 @author: Justin Sheen
 
 @description: script used to create the figures showing the simulations 
-              trajectories. NPI effect and transmission rate (R0) parameters 
-              were changed for each of the three panels.
+              trajectories.
 
 """ 
 # Import libraries, set seeds and parameters -------------------------------
 import numpy as np
 import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 18})
 import networkx as nx
 from collections import defaultdict, Counter
 import EoN
@@ -24,10 +24,10 @@ from pathlib import Path
 home = str(Path.home())
 random.seed(1)
 gen = np.random.Generator(np.random.PCG64(1))
-tgt_R0 = 1.5
+nsim = 500
 k_overdispersion = 0.4
 N_cluster = 1000
-effect = 0.2
+effect = 0.4
 mean_degree = 15
 p = 1.0 - mean_degree / (mean_degree + k_overdispersion)
 threshold = 1
@@ -139,6 +139,8 @@ while (len(sims_con) < nsim):
         I_trt = np.concatenate((I_first_half, I_second_half_trt), axis=None)
         R_trt = np.concatenate((R_first_half, R_second_half_trt), axis=None)
     else:
+        t_con = None
+        t_trt = None
         S_con = None
         S_trt = None
         E_con = None
@@ -149,15 +151,15 @@ while (len(sims_con) < nsim):
         R_trt = None
     sims_con.append([t_con, S_con, E_con, I_con, R_con])
     sims_trt.append([t_trt, S_trt, E_trt, I_trt, R_trt])
-with open(home + '/NPI/code_output/plotting/sims_con_lowE.pickle', 'wb') as handle:
+with open(home + '/NPI/code_output/figs/sims_con.pickle', 'wb') as handle:
     pickle.dump(sims_con, handle, protocol=pickle.HIGHEST_PROTOCOL)
-with open(home + '/NPI/code_output/plotting/sims_trt_lowE.pickle', 'wb') as handle:
+with open(home + '/NPI/code_output/figs/sims_trt.pickle', 'wb') as handle:
     pickle.dump(sims_trt, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 # Plotting --------------------------------------------------------------------
-with open(home + '/NPI/code_output/plotting/sims_con_lowE.pickle', 'rb') as handle:
+with open(home + '/NPI/code_output/figs/sims_con.pickle', 'rb') as handle:
     sims_con = pickle.load(handle)
-with open(home + '/NPI/code_output/plotting/sims_trt_lowE.pickle', 'rb') as handle:
+with open(home + '/NPI/code_output/figs/sims_trt.pickle', 'rb') as handle:
     sims_trt = pickle.load(handle)
 to_del_con = [] # Delete any simulations that do not have any infections at time t
 for i in range(len(sims_con)):
@@ -218,18 +220,14 @@ for i in range(len(I_cons)):
     newList2 = [(x / (n_cluster * 1000)) for x in I_trts[i]]
     ax1.plot(list(range(len(I_cons[i]))), newList, color='orange', linewidth=0.5, alpha=0.5)
     ax1.plot(list(range(len(I_trts[i]))), newList2, color='grey', linewidth=0.5, alpha=0.5)
-    ax1.set_ylabel('I / n')
+    ax1.set_ylabel('Prevalence')
     ax1.set_xlim([10.5, 100])
-    ax1.set_ylim([0, 0.015])
+    ax1.set_ylim([0, 0.01])
     plt.axvline(x=41, color='black', linewidth=0.8, linestyle='-.')
     plt.axvline(x=30, color='black', linewidth=0.8, linestyle='-.')
     custom_lines = [Line2D([0], [0], color='orange', lw=4),
                     Line2D([0], [0], color='grey', lw=4)]
-# Plot just the legend --------------------------------------------------------
-import matplotlib as mpl
-palette = dict(zip(['Control', 'Treatment'], ['orange', 'grey']))
-handles = [mpl.patches.Patch(color=palette[x], label=x) for x in palette.keys()]
-plt.legend(handles=handles)
-plt.gca().set_axis_off()
-plt.show()
+plt.tight_layout()
+plt.savefig(home + '/NPI/code_output/figs/sim_fig_top.png', dpi=300)
+
         

@@ -5,13 +5,15 @@ Created on Thu May 27 12:31:00 2021
 
 @author: Justin Sheen
 
-@description: script used to test stability of identified transmission rate
+@description: script used to test stability of identified transmission rate and
+              day of intervention.
 
 """
 # Import libraries ------------------------------------------------------------
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 20})
 from pathlib import Path
 home = str(Path.home())
 # Create parameter sets to run ------------------------------------------------
@@ -57,14 +59,22 @@ for param_set in param_sets:
     diffs_beta.append((b_hE - b_lE))
     diffs_t.append((t_lE - t_hE))
 # Plot of distribution of diffs in beta ---------------------------------------
-plt.hist(diffs_beta)
-plt.show()
+plt.hist(diffs_beta, color='#1f77b4', bins=10)
+plt.xlabel('Difference in transmission rate, β')
+plt.ylabel('Count')
+plt.title('A) Algorithm 1 stability, β')
+plt.tight_layout()
+plt.savefig(home + '/NPI/code_output/figs/beta_stability.png', dpi=300)
 max(diffs_beta)
 min(diffs_beta)
 np.average(np.abs(diffs_beta))
 # Plot of distribution of diffs in t ------------------------------------------
-plt.hist(diffs_t)
-plt.show()
+plt.hist(diffs_t, color='#1f77b4', bins=10)
+plt.xlabel('Difference in day of intervention, t')
+plt.ylabel('Count')
+plt.title('B) Algorithm 1 stability, t')
+plt.tight_layout()
+plt.savefig(home + '/NPI/code_output/figs/t_stability.png', dpi=300)
 max(diffs_t)
 min(diffs_t)
 np.average(np.abs(diffs_t))
