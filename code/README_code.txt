@@ -1,7 +1,7 @@
 Scripts used to generate simulation results
 
 Folder 1: generate_results (scripts used to generate results of paper)
-- SimpleSScalcs.R: script used to obtain approximate sample sizes needed
+- NPI_SS_Formulae.R: script used to obtain approximate sample sizes needed
 - create_sim_bank.py: script used to create community simulations, with and without an enacted NPI intervention.
 - create_sim_bank_day28: script used to create community simulations, with and without an enacted NPI intervention on day 28 of simulation.
 - search_ss_ttest.py: algorithm to find sufficient number of clusters one generation after intervention when performing a two-sample Welch's t-test (unequal variances).
@@ -26,6 +26,7 @@ Folder 3: create_figures (scripts used to create figures of paper)
 - simulation_figure_lowE.py: script used to create the figures showing the simulations trajectories for lower effect size
 - simulation_figure_lowE_lowk.py: script used to create the figures showing the simulations trajectories for lower effect size and lower k (higher overdispersion)
 - legend.py: script for plotting solely the legend of simulation figures
+- ManuscriptFigs.R: script to create figures 2-4 of the paper
 
 Folder 4: test_stability (scripts used to test the sensitivity and stability of the algorithm)
 - transmission_stability.py: script used to test stability of identified transmission rate and day of intervention

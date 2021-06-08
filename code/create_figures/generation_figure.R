@@ -8,8 +8,8 @@ require(reshape2)
 require(ggplot2)
 require(gridExtra)
 lb <- read.csv("~/NPI/code_output/tables/ttest_rerun.csv", stringsAsFactors = F)
-lb2 <- read.csv("~/NPI/code_output/tables/gen2.csv", stringsAsFactors = F)
-lb3 <- read.csv("~/NPI/code_output/tables/gen3.csv", stringsAsFactors = F)
+lb2 <- read.csv("~/NPI/code_output/tables/ttest_gen2.csv", stringsAsFactors = F)
+lb3 <- read.csv("~/NPI/code_output/tables/ttest_gen3.csv", stringsAsFactors = F)
 param_sets <- list()
 param_sets_dex <- 1
 R0s <- c(1.5, 2)
@@ -130,7 +130,7 @@ for (N in Ns) {
         theme_bw()+
         theme(plot.title = element_text(hjust = 0.5),
               legend.position='none',
-              text = element_text(size=20))+
+              text = element_text(size=12))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('black', 'dodgerblue'))
     } else if (N == 10000 & k == 0.4) {
@@ -144,7 +144,7 @@ for (N in Ns) {
         theme_bw()+
         theme(plot.title = element_text(hjust = 0.5),
               legend.position='none',
-              text = element_text(size=20))+
+              text = element_text(size=12))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('black', 'dodgerblue'))
     } else {
@@ -158,7 +158,7 @@ for (N in Ns) {
         theme_bw()+
         theme(plot.title = element_text(hjust = 0.5),
               legend.position='none',
-              text = element_text(size=20))+
+              text = element_text(size=12))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('black', 'dodgerblue'))
     }
@@ -185,11 +185,17 @@ for (N in Ns) {
                                   subplot_4 + ylab(''),
                                   subplot_7 + ylab(''),
                                   nrow=1),
-                      mylegend, nrow=2, heights=c(10, 1))
+                      nrow=1, heights=c(10))
   }
   ps[[ps_dex]] <- p
   ps_dex <- ps_dex + 1
 }
+ggsave(filename="~/NPI/code_output/figs/Fig5A.png", plot=ps[[1]],
+       width=12, height=3, units="in", dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Fig5B.png", plot=ps[[2]],
+       width=12, height=3, units="in", dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Fig5C.png", plot=ps[[3]],
+       width=12, height=3, units="in", dpi=600)
 
 
 
