@@ -174,7 +174,7 @@ sims_trt = [i for j, i in enumerate(sims_trt) if j not in to_del_trt]
 I_cons = [] # Create 100 simulations, randomly picking n_cluster number of clusters per arm
 I_trts = []
 n_cluster = 100
-for i in range(100):
+for i in range(200):
     chosen_con = random.sample(list(range(len(sims_con))), n_cluster)
     chosen_trt = random.sample(list(range(len(sims_trt))), n_cluster)
     I_con_full = []
