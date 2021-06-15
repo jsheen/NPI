@@ -64,10 +64,10 @@ def get_effect(It_It1con_It1trt, cluster_num, nsample):
             Et = int(It_It1con_It1trt.iloc[chosen[con_dex], 1])
             It = int(It_It1con_It1trt.iloc[chosen[con_dex], 2])
             Rt = int(It_It1con_It1trt.iloc[chosen[con_dex], 3])
-            St1 = int(It_It1con_It1trt.iloc[chosen[con_dex], 4])
-            Et1 = int(It_It1con_It1trt.iloc[chosen[con_dex], 5])
-            It1 = int(It_It1con_It1trt.iloc[chosen[con_dex], 6])
-            Rt1 = int(It_It1con_It1trt.iloc[chosen[con_dex], 7])
+            St1 = int(It_It1con_It1trt.iloc[chosen[con_dex], 8])
+            Et1 = int(It_It1con_It1trt.iloc[chosen[con_dex], 9])
+            It1 = int(It_It1con_It1trt.iloc[chosen[con_dex], 10])
+            Rt1 = int(It_It1con_It1trt.iloc[chosen[con_dex], 11])
             sampled_t_con = gen.multivariate_hypergeometric([St, Et, It, Rt], nsample=nsample, size=1)[0]
             sampled_It_con = sampled_t_con[2]
             sampled_It1_con = gen.multivariate_hypergeometric([St1, Et1, It1, Rt1], nsample=nsample, size=1)[0][2]
@@ -79,10 +79,10 @@ def get_effect(It_It1con_It1trt, cluster_num, nsample):
             Et = int(It_It1con_It1trt.iloc[chosen[trt_dex], 1])
             It = int(It_It1con_It1trt.iloc[chosen[trt_dex], 2])
             Rt = int(It_It1con_It1trt.iloc[chosen[trt_dex], 3])
-            St1 = int(It_It1con_It1trt.iloc[chosen[trt_dex], 16])
-            Et1 = int(It_It1con_It1trt.iloc[chosen[trt_dex], 17])
-            It1 = int(It_It1con_It1trt.iloc[chosen[trt_dex], 18])
-            Rt1 = int(It_It1con_It1trt.iloc[chosen[trt_dex], 19])
+            St1 = int(It_It1con_It1trt.iloc[chosen[trt_dex], 20])
+            Et1 = int(It_It1con_It1trt.iloc[chosen[trt_dex], 21])
+            It1 = int(It_It1con_It1trt.iloc[chosen[trt_dex], 22])
+            Rt1 = int(It_It1con_It1trt.iloc[chosen[trt_dex], 23])
             sampled_t_trt = gen.multivariate_hypergeometric([St, Et, It, Rt], nsample=nsample, size=1)[0]
             sampled_It_trt = sampled_t_trt[2]
             sampled_It1_trt = gen.multivariate_hypergeometric([St1, Et1, It1, Rt1], nsample=nsample, size=1)[0][2]

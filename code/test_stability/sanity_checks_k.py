@@ -62,7 +62,7 @@ for param_set in param_sets:
     for sim_num in range(len(It_It1con_It1trt)):
         St = It_It1con_It1trt[0][sim_num]
         It = It_It1con_It1trt[2][sim_num]
-        It1 = It_It1con_It1trt[6][sim_num]
+        It1 = It_It1con_It1trt[10][sim_num]
         beta_est = It1 / (St * It)
         beta_ests_0s.append(beta_est)
         if beta_est != 0:
@@ -88,10 +88,11 @@ for param_set in param_sets:
                   np.mean(beta_ests_0s), beta - np.mean(beta_ests), beta - np.mean(beta_ests_0s), 
                   np.mean(Sts), np.mean(Its), np.mean(It1s), np.mean(It1s) / np.mean(Its),
                   1 - (np.mean(beta_ests) / beta)])
-df = pd.DataFrame(to_pd, columns=['R0', 'N', 'k', 'true_beta', 'beta_est', 'beta_est wih 0s', 
-                                  'diff beta_est', 'diff beta_est with 0s', 
-                                  'St', 'It', 'It1', 'R00', 'missing'])
+df = pd.DataFrame(to_pd, columns=['R0', 'N', 'k', 'true_beta', 'beta_est', 'beta_est with 0s', 
+                                  'diff_beta_est', 'diff beta_est with 0s', 
+                                  'St', 'It', 'It1', 'R00', 'missing_percent'])
 df.to_csv(home + '/Desktop/beta_sanity.csv', index=False)
+<<<<<<< HEAD
 plt.scatter(df['true_beta'].loc[np.where((df['k'] == 0.1) & (df['N'] == 100))], df['beta_est'].loc[np.where((df['k'] == 0.1) & (df['N'] == 100))], c='blue', marker='^')       
 plt.scatter(df['true_beta'].loc[np.where((df['k'] == 0.4) & (df['N'] == 100))], df['beta_est'].loc[np.where((df['k'] == 0.4) & (df['N'] == 100))], c='orange', marker='^')       
 plt.scatter(df['true_beta'].loc[np.where((df['k'] == 0.7) & (df['N'] == 100))], df['beta_est'].loc[np.where((df['k'] == 0.7) & (df['N'] == 100))], c='red', marker='^')       
@@ -101,14 +102,16 @@ plt.scatter(df['true_beta'].loc[np.where((df['k'] == 0.7) & (df['N'] == 1000))],
 plt.scatter(df['true_beta'].loc[np.where((df['k'] == 0.1) & (df['N'] == 10000))], df['beta_est'].loc[np.where((df['k'] == 0.1) & (df['N'] == 10000))], c='blue')       
 plt.scatter(df['true_beta'].loc[np.where((df['k'] == 0.4) & (df['N'] == 10000))], df['beta_est'].loc[np.where((df['k'] == 0.4) & (df['N'] == 10000))], c='orange')       
 plt.scatter(df['true_beta'].loc[np.where((df['k'] == 0.7) & (df['N'] == 10000))], df['beta_est'].loc[np.where((df['k'] == 0.7) & (df['N'] == 10000))], c='red')        
+=======
+>>>>>>> f56e11f79908294a17d53ba62c1adb882ee34f97
 plt.xlabel('true beta')
 plt.ylabel('estimated beta')
-plt.xlim(0, 0.032)
-plt.ylim(0, 0.032)        
+plt.xlim(0, 0.04)
+plt.ylim(0, 0.04)        
 plt.plot([0,1], [0,1], 'k-', color = 'r', linestyle='dashed')
 plt.show()
 plt.clf()
-plt.scatter(df['true_beta'], df['beta_est wih 0s'])        
+plt.scatter(df['true_beta'], df['beta_est with 0s'])        
 plt.xlabel('true beta')
 plt.ylabel('estimated beta including 0s')
 plt.xlim(0, 0.032)
@@ -116,6 +119,28 @@ plt.ylim(0, 0.032)
 plt.plot([0,1], [0,1], 'k-', color = 'r', linestyle='dashed')
 plt.show()
 plt.clf()
+plt.scatter(df['St'].iloc[np.where((df['k'] == 0.7) & (df['N'] == 100))], df['beta_est'].iloc[np.where((df['k'] == 0.7) & (df['N'] == 100))], c='red', marker='^')        
+plt.scatter(df['St'].iloc[np.where((df['k'] == 0.4) & (df['N'] == 100))], df['beta_est'].iloc[np.where((df['k'] == 0.4) & (df['N'] == 100))], c='orange', marker='^')   
+plt.scatter(df['St'].iloc[np.where((df['k'] == 0.1) & (df['N'] == 100))], df['beta_est'].iloc[np.where((df['k'] == 0.1) & (df['N'] == 100))], c='blue', marker='^')   
+plt.scatter(df['true_beta'].iloc[np.where((df['k'] == 0.7) & (df['N'] == 1000))], df['beta_est'].iloc[np.where((df['k'] == 0.7) & (df['N'] == 1000))], c='red', marker='s')        
+plt.scatter(df['true_beta'].iloc[np.where((df['k'] == 0.4) & (df['N'] == 1000))], df['beta_est'].iloc[np.where((df['k'] == 0.4) & (df['N'] == 1000))], c='orange', marker='s')   
+plt.scatter(df['true_beta'].iloc[np.where((df['k'] == 0.1) & (df['N'] == 1000))], df['beta_est'].iloc[np.where((df['k'] == 0.1) & (df['N'] == 1000))], c='blue', marker='s') 
+plt.scatter(df['true_beta'].iloc[np.where((df['k'] == 0.7) & (df['N'] == 10000))], df['beta_est'].iloc[np.where((df['k'] == 0.7) & (df['N'] == 10000))], c='red', marker='.')        
+plt.scatter(df['true_beta'].iloc[np.where((df['k'] == 0.4) & (df['N'] == 10000))], df['beta_est'].iloc[np.where((df['k'] == 0.4) & (df['N'] == 10000))], c='orange', marker='.')   
+plt.scatter(df['true_beta'].iloc[np.where((df['k'] == 0.1) & (df['N'] == 10000))], df['beta_est'].iloc[np.where((df['k'] == 0.1) & (df['N'] == 10000))], c='blue', marker='.') 
+plt.xlabel('true beta')
+plt.ylabel('estimated beta')
+plt.xlim(0, 0.032)
+plt.ylim(0, 0.032)        
+plt.plot([0,1], [0,1], 'k-', color = 'r', linestyle='dashed')
+plt.show()
+plt.clf()
 
+from statsmodels.formula.api import ols
+fit = ols('missing_percent ~ C(k) + C(N)', data=df).fit() 
+fit.summary()
 
+from statsmodels.formula.api import ols
+fit = ols('true_beta ~  beta_est + C(k) + C(N)', data=df).fit() 
+fit.summary()
                     

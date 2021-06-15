@@ -7,6 +7,7 @@
 require(reshape2)
 require(ggplot2)
 require(gridExtra)
+require(grid)
 lb <- read.csv("~/NPI/code_output/tables/ttest_rerun.csv", stringsAsFactors = F)
 lb2 <- read.csv("~/NPI/code_output/tables/ttest_gen2.csv", stringsAsFactors = F)
 lb3 <- read.csv("~/NPI/code_output/tables/ttest_gen3.csv", stringsAsFactors = F)
@@ -109,28 +110,46 @@ for (N in Ns) {
     subplot_40_1.5 <- subplot[which(subplot$effect == "0.4" & subplot$R0 == "1.5"),]
     subplot_40_2 <- subplot[which(subplot$effect == "0.4" & subplot$R0 == "2"),]
     subplot_20_1.5 <- data.frame(t(subplot_20_1.5))[1:3,]
-    subplot_20_1.5$x <- c('First Gen.', 'Second Gen.', 'Third Gen.')
+    subplot_20_1.5$x <- c('1st', '2nd', '3rd')
     subplot_20_1.5 <- melt(subplot_20_1.5, 'x')
     subplot_20_2 <- data.frame(t(subplot_20_2))[1:3,]
-    subplot_20_2$x <- c('First Gen.', 'Second Gen.', 'Third Gen.')
+    subplot_20_2$x <- c('1st', '2nd', '3rd')
     subplot_20_2 <- melt(subplot_20_2, 'x')
     subplot_40_1.5 <- data.frame(t(subplot_40_1.5))[1:3,]
-    subplot_40_1.5$x <- c('First Gen.', 'Second Gen.', 'Third Gen.')
+    subplot_40_1.5$x <- c('1st', '2nd', '3rd')
     subplot_40_1.5 <- melt(subplot_40_1.5, 'x')
     subplot_40_2 <- data.frame(t(subplot_40_2))[1:3,]
-    subplot_40_2$x <- c('First Gen.', 'Second Gen.', 'Third Gen.')
+    subplot_40_2$x <- c('1st', '2nd', '3rd')
     subplot_40_2 <- melt(subplot_40_2, 'x')
     subplot_20_2$title <- paste0('N = ', N, ", k = ", k)
     if (N == 10000 & k == 0.1) {
       subplot_final <- ggplot() + 
         geom_line(subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
         geom_line(subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        ylab('')+
+        xlab('')+
+        theme_bw()+
+        theme(plot.title = element_text(hjust = 0.5),
+              legend.position='none',
+              text = element_text(size=30),
+              axis.title.x = element_text(size=23),
+              axis.title.y = element_text(size=21))+
+        facet_grid(. ~ title)+
+        scale_color_manual(values=c('black', 'dodgerblue'))
+    } else if (N == 1000 & k == 0.1) {
+      subplot_final <- ggplot() + 
+        geom_line(subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
+        geom_line(subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
+        geom_line(subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('Number of Clusters Per Arm')+
         xlab('')+
         theme_bw()+
         theme(plot.title = element_text(hjust = 0.5),
               legend.position='none',
-              text = element_text(size=12))+
+              text = element_text(size=30),
+              axis.title.x = element_text(size=23),
+              axis.title.y = element_text(size=21))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('black', 'dodgerblue'))
     } else if (N == 10000 & k == 0.4) {
@@ -139,12 +158,14 @@ for (N in Ns) {
         geom_line(subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
         geom_line(subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
         geom_line(subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
-        ylab('Number of Clusters Per Arm')+
+        ylab('')+
         xlab('Generation of Sampling')+
         theme_bw()+
         theme(plot.title = element_text(hjust = 0.5),
               legend.position='none',
-              text = element_text(size=12))+
+              text = element_text(size=30),
+              axis.title.x = element_text(size=23),
+              axis.title.y = element_text(size=21))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('black', 'dodgerblue'))
     } else {
@@ -153,12 +174,14 @@ for (N in Ns) {
         geom_line(subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
         geom_line(subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
         geom_line(subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
-        ylab('Number of Clusters Per Arm')+
+        ylab('')+
         xlab('')+
         theme_bw()+
         theme(plot.title = element_text(hjust = 0.5),
               legend.position='none',
-              text = element_text(size=12))+
+              text = element_text(size=30),
+              axis.title.x = element_text(size=23),
+              axis.title.y = element_text(size=21))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('black', 'dodgerblue'))
     }
@@ -169,21 +192,21 @@ for (N in Ns) {
   subplot_4 <- helper_function(toplot, 0.4, N)
   subplot_7 <- helper_function(toplot, 0.7, N)
   if (N == 100) {
-    p <- grid.arrange(arrangeGrob(subplot_1 + ylab('') + xlab(''),
-                                  subplot_4 + ylab('') + xlab(''),
-                                  subplot_7 + ylab('') + xlab(''),
+    p <- grid.arrange(arrangeGrob(subplot_1,
+                                  subplot_4,
+                                  subplot_7,
                                   nrow=1),
                       nrow=1,heights=c(10))
   } else if (N == 1000) {
-    p <- grid.arrange(arrangeGrob(subplot_1 + xlab(''),
-                                  subplot_4 + ylab('') + xlab(''),
-                                  subplot_7 + ylab('') + xlab(''),
+    p <- grid.arrange(arrangeGrob(subplot_1,
+                                  subplot_4,
+                                  subplot_7,
                                   nrow=1),
                       nrow=1,heights=c(10))
   } else {
-    p <- grid.arrange(arrangeGrob(subplot_1 + ylab(''),
-                                  subplot_4 + ylab(''),
-                                  subplot_7 + ylab(''),
+    p <- grid.arrange(arrangeGrob(subplot_1,
+                                  subplot_4,
+                                  subplot_7,
                                   nrow=1),
                       nrow=1, heights=c(10))
   }
@@ -191,11 +214,11 @@ for (N in Ns) {
   ps_dex <- ps_dex + 1
 }
 ggsave(filename="~/NPI/code_output/figs/Fig5A.png", plot=ps[[1]],
-       width=12, height=3, units="in", dpi=600)
+       width=13, height=4, units="in", dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Fig5B.png", plot=ps[[2]],
-       width=12, height=3, units="in", dpi=600)
+       width=13, height=4, units="in", dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Fig5C.png", plot=ps[[3]],
-       width=12, height=3, units="in", dpi=600)
+       width=13, height=4, units="in", dpi=600)
 
 
 
