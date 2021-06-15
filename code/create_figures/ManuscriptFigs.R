@@ -212,4 +212,4 @@ plot.4C <- ggplot(lb_ttest) +
 #       width=5.5, height=12, units="in", dpi=600)
 l <- list(plot.4A, ggplot() + theme_void(), plot.4B, ggplot() + theme_void(), plot.4C)
 ggsave(filename="~/NPI/code_output/figs/Fig4.tiff", marrangeGrob(grobs = l, nrow=2, ncol=3, top=NULL),
-       width=16.5, height=24, units='in', dpi=800)
+       width=16.5, height=24, units='in', dpi=600)

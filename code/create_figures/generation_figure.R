@@ -193,6 +193,6 @@ for (N in Ns) {
 #       width=13, height=4, units="in", dpi=600)
 ps[[4]] <- ggplot() + theme_void()
 ggsave(filename="~/NPI/code_output/figs/Fig5.tiff", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
-       width=13, height=16, units='in', dpi=800)
+       width=13, height=16, units='in', dpi=600)
 
 
