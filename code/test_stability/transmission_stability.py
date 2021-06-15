@@ -56,10 +56,13 @@ for param_set in param_sets:
     It_It1con_It1trt_lE = pd.read_csv(home + "/NPI/code_output/res/" + str(tgt_R0) + "_" + str(N_cluster) + "_" + str(k_overdispersion) + "_" + str(0.2) + "_" + str(expected_It_N) + ".csv", header=None)
     b_lE = It_It1con_It1trt_lE.iloc[3000, 2]
     t_lE = It_It1con_It1trt_lE.iloc[3000, 3]
+    print(b_hE)
+    print(b_lE)
+    print((b_hE - b_lE))
     diffs_beta.append((b_hE - b_lE))
     diffs_t.append((t_lE - t_hE))
 # Plot of distribution of diffs in beta ---------------------------------------
-plt.hist(diffs_beta, color='#1f77b4', bins=10)
+plt.hist(np.abs(diffs_beta), color='#1f77b4', bins=5)
 plt.xlabel('Difference in transmission rate, β')
 plt.ylabel('Count')
 plt.title('A) Algorithm 1 stability, β')
@@ -69,7 +72,7 @@ max(diffs_beta)
 min(diffs_beta)
 np.average(np.abs(diffs_beta))
 # Plot of distribution of diffs in t ------------------------------------------
-plt.hist(diffs_t, color='#1f77b4', bins=10)
+plt.hist(np.abs(diffs_t), color='#1f77b4', bins=5)
 plt.xlabel('Difference in day of intervention, t')
 plt.ylabel('Count')
 plt.title('B) Algorithm 1 stability, t')
