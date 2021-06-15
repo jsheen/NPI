@@ -1,5 +1,6 @@
 ### Requires tidyverse package and NPI_SS_Formulae.R commands
 require(tidyverse)
+require(gridExtra)
 source(file="~/NPI/code/generate_results/NPI_SS_Formulae.R")
 
 ### Figure 2: Full Sampling Formula Results
@@ -203,10 +204,12 @@ plot.4C <- ggplot(lb_ttest) +
   labs(y="Number of Clusters Per Arm",
        title="C) Required Individuals by \nPercent Sampled")
 
-ggsave(filename="~/NPI/code_output/figs/Fig4A.png", plot=plot.4A,
-       width=5.5, height=12, units="in", dpi=600)
-ggsave(filename="~/NPI/code_output/figs/Fig4B.png", plot=plot.4B,
-       width=5.5, height=12, units="in", dpi=600)
-ggsave(filename="~/NPI/code_output/figs/Fig4C.png", plot=plot.4C,
-       width=5.5, height=12, units="in", dpi=600)
-
+#ggsave(filename="~/NPI/code_output/figs/Fig4A.png", plot=plot.4A,
+#       width=5.5, height=12, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/Fig4B.png", plot=plot.4B,
+#       width=5.5, height=12, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/Fig4C.png", plot=plot.4C,
+#       width=5.5, height=12, units="in", dpi=600)
+l <- list(plot.4A, ggplot() + theme_void(), plot.4B, ggplot() + theme_void(), plot.4C)
+ggsave(filename="~/NPI/code_output/figs/Fig4.tiff", marrangeGrob(grobs = l, nrow=2, ncol=3, top=NULL),
+       width=16.5, height=24, units='in', dpi=800)

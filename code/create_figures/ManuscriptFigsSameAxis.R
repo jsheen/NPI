@@ -1,5 +1,6 @@
 ### Requires tidyverse package and NPI_SS_Formulae.R commands
 require(tidyverse)
+require(gridExtra)
 source(file="~/NPI/code/generate_results/NPI_SS_Formulae.R")
 
 
@@ -31,8 +32,8 @@ plot_r_k_full <- ggplot(R_full, mapping=aes(x=Rt0, y=full, group=k, color=k)) + 
                      legend.key.size = unit(1, 'cm')) +
   coord_cartesian(xlim=c(1,4.1), ylim=c(0,800), expand=FALSE, clip="on")
 
-ggsave(filename="~/NPI/code_output/figs/Full_R_k.png", plot=plot_r_k_full,
-       width=8, height=8, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/Full_R_k.png", plot=plot_r_k_full,
+#       width=8, height=8, units="in", dpi=600)
 
 R_full_EIt <- expand_grid(EIt=seq(.001,.05, by=.001),popsize=seq(100,1000,by=300)) %>%
   cbind(tibble(effect=0.4,Rt0=1.5,k=0.4))
@@ -62,9 +63,12 @@ plot_EIt_full <- ggplot(R_full_EIt, mapping=aes(x=EIt, y=full, group=popsize, co
                      legend.key.size = unit(1, 'cm'))
 
 
-ggsave(filename="~/NPI/code_output/figs/Full_EIt.png", plot=plot_EIt_full,
-       width=8, height=8, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/Full_EIt.png", plot=plot_EIt_full,
+#       width=8, height=8, units="in", dpi=600)
 
+l <- list(plot_r_k_full, plot_EIt_full)
+ggsave(filename="~/NPI/code_output/figs/Fig2.tiff", marrangeGrob(grobs = l, nrow=1, ncol=2, top=NULL),
+       width=16, height=8, units='in', dpi=800)
 
 ### Figure 3: Approximations Accounting for Sampling:
 Baseline.vals <- tibble(Rt0=1.5, effect=0.4, k=0.4, popsize=10000,
@@ -100,8 +104,8 @@ plot_r_k <- ggplot(R_sample, mapping=aes(x=Rt0, y=samp, group=k, color=k)) + geo
   coord_cartesian(ylim=c(0,800), xlim=c(1,4.1), expand=FALSE, clip="on") #+
 # geom_point(aes(x=Rt0, y=suffNo, group=k, color=k))
 
-ggsave(filename="~/NPI/code_output/figs/R_k.png", plot=plot_r_k,
-       width=8, height=8, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/R_k.png", plot=plot_r_k,
+#       width=8, height=8, units="in", dpi=600)
 
 
 ##### Fig 3B: R_t and Effect Size
@@ -133,8 +137,8 @@ plot_r_delta <- ggplot(R_delta_sample, mapping=aes(x=Rt0, y=samp, group=effect, 
                      legend.key.size = unit(1, 'cm')) +
   coord_cartesian(ylim=c(0,800), xlim=c(1,4.1), expand=FALSE, clip="on")
 
-ggsave(filename="~/NPI/code_output/figs/R_Delta.png", plot=plot_r_delta,
-       width=8, height=8, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/R_Delta.png", plot=plot_r_delta,
+#       width=8, height=8, units="in", dpi=600)
 
 
 ##### Fig 3C: Sample Size and Cluster Size
@@ -166,6 +170,9 @@ plot_sizes <- ggplot(V_sample, mapping=aes(x=sampsize, y=samp, group=popsize, co
                      plot.margin=unit(c(0.1,1,0.1,0.1),"cm"),
                      legend.key.size = unit(1, 'cm'))
 
-ggsave(filename="~/NPI/code_output/figs/Sizes.png", plot=plot_sizes,
-       width=8, height=8, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/Sizes.png", plot=plot_sizes,
+#       width=8, height=8, units="in", dpi=600)
 
+l <- list(plot_r_k, plot_r_delta, plot_sizes)
+ggsave(filename="~/NPI/code_output/figs/Fig3.tiff", marrangeGrob(grobs = l, nrow=1, ncol=3, top=NULL),
+       width=24, height=8, units='in', dpi=800)

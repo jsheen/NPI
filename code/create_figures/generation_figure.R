@@ -71,34 +71,6 @@ toplot$one <- ifelse(toplot$one == 1000, NA, toplot$one)
 toplot$two <- ifelse(toplot$two == 1000, NA, toplot$two)
 toplot$three <- ifelse(toplot$three == 1000, NA, toplot$three)
 Ns <- c(100, 1000, 10000)
-dummy <- data.frame(matrix(NA, nrow=4, ncol=5))
-colnames(dummy) <- c('x', '20%', '40%')
-dummy$x <- 1:4
-dummy$y1 <- 1:4
-dummy$y2 <- 2:5
-dummy$y3 <- 3:6
-dummy$y4 <- 4:7
-dummy_plot <- ggplot() +
-  geom_line(dummy, mapping=aes(x=x, y=y1, color='20%, 1.5', linetype='20%, 1.5'))+
-  geom_line(dummy, mapping=aes(x=x, y=y3, color='20%, 2.0', linetype='20%, 2.0'))+
-  geom_line(dummy, mapping=aes(x=x, y=y2, color='40%, 1.5', linetype='40%, 1.5'))+
-  geom_line(dummy, mapping=aes(x=x, y=y4, color='40%, 2.0', linetype='40%, 2.0'))+
-  scale_color_manual(name="Effect Size, "~R[0]^0,
-                     labels=c("20%, 1.5", "20%, 2.0","40%, 1.5", "40%, 2.0"),
-                     values=c('black', 'black', 'dodgerblue', 'dodgerblue'))+
-  scale_linetype_manual(name="Effect Size, "~R[0]^0,
-                        labels=c("20%, 1.5", "20%, 2.0","40%, 1.5", "40%, 2.0"),
-                        values=c('dashed', 'solid', 'dashed', 'solid'))+
-  theme(legend.position='bottom',
-        text = element_text(size=18))
-#extract legend
-#https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
-g_legend<-function(a.gplot){
-  tmp <- ggplot_gtable(ggplot_build(a.gplot))
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  legend <- tmp$grobs[[leg]]
-  return(legend)}
-mylegend <- g_legend(dummy_plot)
 ps <- list()
 ps_dex <- 1
 for (N in Ns) {
@@ -213,12 +185,14 @@ for (N in Ns) {
   ps[[ps_dex]] <- p
   ps_dex <- ps_dex + 1
 }
-ggsave(filename="~/NPI/code_output/figs/Fig5A.png", plot=ps[[1]],
-       width=13, height=4, units="in", dpi=600)
-ggsave(filename="~/NPI/code_output/figs/Fig5B.png", plot=ps[[2]],
-       width=13, height=4, units="in", dpi=600)
-ggsave(filename="~/NPI/code_output/figs/Fig5C.png", plot=ps[[3]],
-       width=13, height=4, units="in", dpi=600)
-
+#ggsave(filename="~/NPI/code_output/figs/Fig5A.png", plot=ps[[1]],
+#       width=13, height=4, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/Fig5B.png", plot=ps[[2]],
+#       width=13, height=4, units="in", dpi=600)
+#ggsave(filename="~/NPI/code_output/figs/Fig5C.png", plot=ps[[3]],
+#       width=13, height=4, units="in", dpi=600)
+ps[[4]] <- ggplot() + theme_void()
+ggsave(filename="~/NPI/code_output/figs/Fig5.tiff", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
+       width=13, height=16, units='in', dpi=800)
 
 
