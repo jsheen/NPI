@@ -68,7 +68,9 @@ plot_EIt_full <- ggplot(R_full_EIt, mapping=aes(x=EIt, y=full, group=popsize, co
 
 l <- list(plot_r_k_full, plot_EIt_full)
 ggsave(filename="~/NPI/code_output/figs/Fig2.tiff", marrangeGrob(grobs = l, nrow=1, ncol=2, top=NULL),
-       width=8, height=4, units='in', dpi=600)
+       width=16, height=8, units='in', dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Fig2.png", marrangeGrob(grobs = l, nrow=1, ncol=2, top=NULL),
+       width=16, height=8, units='in', dpi=72)
 
 ### Figure 3: Approximations Accounting for Sampling:
 Baseline.vals <- tibble(Rt0=1.5, effect=0.4, k=0.4, popsize=10000,
@@ -175,4 +177,6 @@ plot_sizes <- ggplot(V_sample, mapping=aes(x=sampsize, y=samp, group=popsize, co
 
 l <- list(plot_r_k, plot_r_delta, plot_sizes)
 ggsave(filename="~/NPI/code_output/figs/Fig3.tiff", marrangeGrob(grobs = l, nrow=1, ncol=3, top=NULL),
-       width=10, height=3.33, units='in', dpi=600)
+       width=24, height=8, units='in', dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Fig3.png", marrangeGrob(grobs = l, nrow=1, ncol=3, top=NULL),
+       width=24, height=8, units='in', dpi=72)
