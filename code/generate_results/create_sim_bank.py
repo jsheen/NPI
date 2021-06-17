@@ -5,10 +5,9 @@ Created on Tue Jan 26 20:40:47 2021
 
 @author: Justin Sheen
 
-@description: script used to create community simulations, with and
+@description: script used to create cluster simulations, with and
               without an enacted NPI intervention.
 """
-
 # Import libraries and set seeds ----------------------------------------------
 import numpy as np
 import random

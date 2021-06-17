@@ -1,9 +1,9 @@
 Scripts used to generate simulation results
 
 Folder 1: generate_results (scripts used to generate results of paper)
-- NPI_SS_Formulae.R: script used to obtain approximate sample sizes needed
-- create_sim_bank.py: script used to create community simulations, with and without an enacted NPI intervention.
-- create_sim_bank_day28: script used to create community simulations, with and without an enacted NPI intervention on day 28 of simulation.
+- NPI_SS_Formulae.R: script used to obtain approximate sample sizes needed.
+- create_sim_bank.py: script used to create cluster simulations, with and without an enacted NPI intervention.
+- create_sim_bank_day28: script used to create cluster simulations, with and without an enacted NPI intervention on day 28 of simulation.
 - search_ss_ttest.py: algorithm to find sufficient number of clusters one generation after intervention when performing a two-sample Welch's t-test (unequal variances).
 - search_ss_ttest_gen2.py: algorithm to find sufficient number of clusters two generations after intervention when performing a two-sample Welch's t-test (unequal variances).
 - search_ss_ttest_gen3.py: algorithm to find sufficient number of clusters three generations after intervention when performing a two-sample Welch's t-test (unequal variances).
@@ -20,16 +20,4 @@ Folder 2: generate_tables (scripts used to generate tables of paper)
 - get_ttest_day28_csv.R: script to create csv of ttest results (one generation after intervention) when intervention is enacted on day 28 of the simulation.
 
 Folder 3: create_figures (scripts used to create figures of paper)
-- distribution_of_infectious.py: script used to create figure of the distribution of infectious individuals at time of intervention
-- generation_figure.R: script used to create the figure showing effect of lag on sample size
-- simulation_figure.py: script used to create the figures showing the simulations trajectories
-- simulation_figure_lowE.py: script used to create the figures showing the simulations trajectories for lower effect size
-- simulation_figure_lowE_lowk.py: script used to create the figures showing the simulations trajectories for lower effect size and lower k (higher overdispersion)
-- legend.py: script for plotting solely the legend of simulation figures
-- ManuscriptFigs.R: script to create figures 2-4 of the paper
-
-Folder 4: test_stability (scripts used to test the sensitivity and stability of the algorithm)
-- transmission_stability.py: script used to test stability of identified transmission rate and day of intervention
-- algo2_stability.py: script to examine the stability of Algorithm 2
-- concavity.py: check concavity of solved traces for those that need over 500 clusters
-- concavity_all.py: check concavity of all solved traces
+- Each filename corresponds to their created figure
