@@ -1,5 +1,5 @@
 # NPI-analysis
-Accompanies Sheen, Haushofer, Metcalf, and Kennedy-Shaffer (2020). The Required Size of Cluster Randomized Trials of Non-Pharmaceutical Interventions in Epidemic Settings.
+Accompanies Sheen, Haushofer, Metcalf, and Kennedy-Shaffer (2021). The Required Size of Cluster Randomized Trials of Non-Pharmaceutical Interventions in Epidemic Settings.
 
 Code:
 - Folder 1: generate_results (scripts used to generate results of paper)
