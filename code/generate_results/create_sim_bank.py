@@ -33,7 +33,7 @@ for i in rts:
         for k in clusters:
             for l in effects:
                 for m in eits:
-                	if (k == 10000 and j == 0.1):
+                    if (k == 10000 and j == 0.1):
                         param_sets.append([i, j, k, l , 0.0045])
                     else:
                         param_sets.append([i, j, k, l , m])
