@@ -93,8 +93,12 @@ def get_power(It_It1con_It1trt, cluster_num, nsample):
             del SERt_ItIt1[index_clus2]
             del SERt_ItIt1[0]
         diffs = [x[0][1] - x[1][2] for x in SERt_ItIt1_con_trt]
+        if len(diffs) != ncluster:
+            raise NameError("Incorrect number of pairs.")
         p_val = ttest_1samp(diffs, popmean=0, alternative="greater")[1]
         p_vals.append(p_val)
+    if len(p_vals) != nsim:
+        raise NameError("Incorrect number of p_vals.")
     power = len(np.where(np.array(p_vals) <= 0.05)[0]) / len(p_vals)
     return power
 def dac(It_It1con_It1trt, min_cluster, max_cluster, nsample, iters):
