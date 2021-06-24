@@ -1,4 +1,4 @@
-Scripts used to generate simulation results
+# Scripts used to generate simulation results
 
 Folder 1: generate_results (scripts used to generate results of paper)
 - NPI_SS_Formulae.R: script used to obtain approximate sample sizes needed.
