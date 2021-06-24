@@ -4,7 +4,6 @@
 # @description: script to create csv of ttest results matching on susceptible individuals
 #
 # ------------------------------------------------------------------------------
-source("~/NPI/code/generate_results/NPI_SS_Formulae.R")
 # Get all parameters -----------------------------------------------------------
 param_sets <- c()
 param_sets_dex <- 1
@@ -66,17 +65,13 @@ for (param_set in param_sets) {
   effect <- param_set[[5]][1]
   nsample <- param_set[[6]][1]
   It_It1con_It1trt <- read.csv(paste0("~/NPI/code_output/res/", tgt_R0, "_", N_cluster, "_", k_overdispersion, "_", effect, "_", expected_It_N, ".csv"), header=F)
-  adjustment <- unname(unlist(It_It1con_It1trt[nrow(It_It1con_It1trt),][1] / 3000))
   inter_day <- unname(unlist(It_It1con_It1trt[nrow(It_It1con_It1trt),][4]))
   It_It1con_It1trt <- It_It1con_It1trt[1:(nrow(It_It1con_It1trt) - 1),]
   sufficient_ncluster_res <- read.csv(paste0("~/NPI/code_output/res/res_", tgt_R0, "_", N_cluster, "_", k_overdispersion, "_", effect, "_", expected_It_N, "_", nsample, "_M_S.csv"), header=F)
   sufficient_ncluster <- unname(unlist(sufficient_ncluster_res))
   if (sufficient_ncluster == 1000 | sufficient_ncluster == -1) {
     sufficient_ncluster <- ">=1000"
-    adjusted_sufficient_ncluster <- ">=1000"
-  } else {
-    adjusted_sufficient_ncluster <- sufficient_ncluster * adjustment
-  }
+  } 
   Rt0s <- c()
   Rt1s <- c()
   Its <- c()
@@ -102,16 +97,12 @@ for (param_set in param_sets) {
   var_It1_trt <- var(It1s_trt)
   mean_It1_con <- mean(It1s_con)
   var_It1_con <- var(It1s_con)
-  approx <- SScalc.samp(Rt1=mean_Rt1, Rt0=mean_Rt0, 
-                           k1=k_overdispersion, k0=k_overdispersion, 
-                           m=nsample, n=N_cluster, EIt=(mean_It / N_cluster),
-                           pow=.8, alpha=.05, N=NULL)
-  new_row <- data.frame(matrix(nrow=1, ncol=20))
+  new_row <- data.frame(matrix(nrow=1, ncol=18))
   colnames(new_row) <- c("E_It", "N", "R0", "k", "effect", "inter_day", "mean_Rt0", 
                          "var_Rt0", "mean_Rt1", "var_Rt1", 
                          "mean_It", "var_It", "mean_It1_con", "var_It1_con", "mean_It1_trt", "var_It1_trt",
-                         "nsample", "approx",
-                         "sufficient_ncluster", "adjusted_sufficient_ncluster")
+                         "nsample",
+                         "sufficient_ncluster")
   new_row$E_It <- expected_It_N
   new_row$R0 <- tgt_R0
   new_row$effect <- effect
@@ -123,9 +114,7 @@ for (param_set in param_sets) {
   new_row$var_Rt0 <- var_Rt0
   new_row$mean_Rt1 <- mean_Rt1
   new_row$var_Rt1 <- var_Rt1
-  new_row$approx <- approx
   new_row$sufficient_ncluster <- sufficient_ncluster
-  new_row$adjusted_sufficient_ncluster <- adjusted_sufficient_ncluster
   new_row$mean_It <- mean_It / N_cluster
   new_row$var_It <- var_It / ((N_cluster)^2)
   new_row$mean_It1_trt <- mean_It1_trt / N_cluster
