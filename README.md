@@ -1,16 +1,16 @@
 # NPI-analysis
 Accompanies Sheen, Haushofer, Metcalf, and Kennedy-Shaffer (2021). The Required Size of Cluster Randomized Trials of Non-Pharmaceutical Interventions in Epidemic Settings.
 
-Code:
+code:
 - Folder 1: generate_results (scripts used to generate results of paper)
 - Folder 2: generate_tables (scripts used to generate tables of paper)
 - Folder 3: create_figures (scripts used to create figures of paper)
 
-Code Output:
+code_output:
 - Folder 1: res (simulation results of paper)
 - Folder 2: tables (tables of paper)
 - Folder 3: figs (figures of paper)
 
-These programs are a work in progress, as we work to improve usability, error-catching, and speed of analysis. If you find errors, please contact Justin Sheen at jsheen (at) princeton (dot) edu.
+These programs are a work in progress, as we work to improve usability, error-catching, and speed of analysis. If you find errors, please contact Justin Sheen at jsheen (at) princeton (dot) edu or Lee Kennedy-Shaffer at lkennedyshaffer (at) vassar (dot) edu.
 
 Last Update: June 23, 2021
