@@ -164,7 +164,7 @@ for param_set in param_sets:
                 to_add_row.append(I[t_dex])
                 next_t += 1
         I_series.append(to_add_row)
-    med_t_one_pct = None
+    med_t = None
     # Find first day of sim where the ave. num. of infects >= expected_It_N ---
     for day_dex in range(nsim):
         focal_dist = []
@@ -176,7 +176,7 @@ for param_set in param_sets:
         print(len(focal_dist))
         print(statistics.mean(focal_dist))
         if statistics.mean(focal_dist) >= expected_It_N:
-            med_t_one_pct = day_dex
+            med_t = day_dex
             break
     # Set threshold value of number of infections at time t -------------------
     threshold = 1
@@ -214,7 +214,7 @@ for param_set in param_sets:
         IC = defaultdict(lambda: 'S')
         for node in range(initial_infections_per_cluster):
             IC[node] = 'I'
-        full_first_half = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax = math.ceil(med_t_one_pct), return_full_data=True) 
+        full_first_half = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax = math.ceil(med_t), return_full_data=True) 
         t_first_half = full_first_half.t()
         S_first_half = full_first_half.S()
         E_first_half = full_first_half.summary()[1]['E']
@@ -324,4 +324,4 @@ for param_set in param_sets:
         out_f.write(",")
         out_f.write(str(beta))
         out_f.write(",")
-        out_f.write(str(med_t_one_pct))
+        out_f.write(str(med_t))
