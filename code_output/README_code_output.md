@@ -1,4 +1,4 @@
-Output of simulation code
+# Output of simulation code
 
 Folder 1: res (simulation results of paper)
 - Naming convention of simulation results: R0_N_k_effect_E[I] (_day28 if day28 file)
