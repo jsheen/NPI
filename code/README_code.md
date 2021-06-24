@@ -19,5 +19,5 @@ Folder 2: generate_tables (scripts used to generate tables of paper)
 - get_M_SER_csv.R: script to create csv of ttest results matching on non-infectious individuals
 - get_ttest_day28_csv.R: script to create csv of ttest results (one generation after intervention) when intervention is enacted on day 28 of the simulation.
 
-Folder 3: create_figures (scripts used to create figures of paper)
+Folder 3: generate_figures (scripts used to create figures of paper)
 - Each filename corresponds to their created figure
