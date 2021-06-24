@@ -11,6 +11,6 @@ code_output:
 - Folder 2: tables (tables of paper)
 - Folder 3: figs (figures of paper)
 
-These programs are a work in progress, as we work to improve usability, error-catching, and speed of analysis. If you find errors, please contact Justin Sheen at jsheen (at) princeton (dot) edu or Lee Kennedy-Shaffer at lkennedyshaffer (at) vassar (dot) edu.
+These programs are a work in progress, as we work to improve usability, error-catching, and speed of analysis. If you find errors, please contact Justin Sheen at jsheen (at) princeton (dot) edu.
 
 Last Update: June 23, 2021
