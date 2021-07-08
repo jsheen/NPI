@@ -1,3 +1,10 @@
+### Description: This file contains three functions used to calculate the required sample
+### size for a RCT of a non-pharmaceutical intervention.
+### - t.test.calcs: function to calculate power, effect size, or sample size per arm in two-sided two-sample 
+###   t-test with equal arm sizes and unequal variances:
+### - SScalc.full: function for required sample size with assumption of full testing: everyone in the cluster is tested
+### - SScalc.samp: function for requried sample size without assumption of full testing
+
 ### Function to calculate power, effect size, or sample size per arm in two-sided two-sample t-test 
 #### with equal arm sizes and unequal variances:
 t.test.calcs <- function(sd1, sd2, alpha=0.05, N=NULL, delta=NULL, pow=NULL) {

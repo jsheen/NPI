@@ -3,8 +3,6 @@
 """
 Created on Tue Jan 26 20:40:47 2021
 
-@author: Justin Sheen
-
 @description: script used to create cluster simulations, with and
               without an enacted NPI intervention on day 28 of simulation.
 

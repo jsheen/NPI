@@ -3,8 +3,6 @@
 """
 Created on Wed Apr 14 11:10:46 2021
 
-@author: Justin Sheen
-
 @description: algorithm to find sufficient number of clusters two generations
               after intervention when performing a two-sample Welch's t-test 
               (unequal variances).

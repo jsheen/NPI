@@ -3,8 +3,6 @@
 """
 Created on Wed May  5 11:22:06 2021
 
-@author: Justin Sheen
-
 @description: algorithm to find sufficient number of clusters when matching on
               number of susceptible individuals and performing a paired one-sample 
               t-test on the differences of the outcome.

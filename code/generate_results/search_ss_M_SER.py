@@ -3,8 +3,6 @@
 """
 Created on Sun May 16 12:04:18 2021
 
-@author: Justin Sheen
-
 @description: algorithm to find sufficient number of clusters when matching on
               number of non-infectious individuals and performing a paired one-sample 
               t-test on the differences of the outcome.

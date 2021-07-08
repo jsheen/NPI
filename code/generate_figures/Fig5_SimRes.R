@@ -184,7 +184,7 @@ for (N in Ns) {
   ps_dex <- ps_dex + 1
 }
 ps[[4]] <- ggplot() + theme_void()
-ggsave(filename="~/NPI/code_output/figs/Fig5.tiff", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
+ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.tiff", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
        width=13, height=16, units='in', dpi=600)
 
 

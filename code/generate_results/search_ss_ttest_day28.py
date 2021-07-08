@@ -3,8 +3,6 @@
 """
 Created on Tue Apr 20 18:37:24 2021
 
-@author: Justin Sheen
-
 @description: algorithm to find sufficient number of clusters one generation 
               after intervention when intervention is enacted on day 28 of the simulation
               when performing a two-sample Welch's t-test (unequal variances).
