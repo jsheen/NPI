@@ -150,8 +150,8 @@ while (len(sims_con) < nsim):
         R_trt = None
     sims_con.append([t_con, S_con, E_con, I_con, R_con])
     sims_trt.append([t_trt, S_trt, E_trt, I_trt, R_trt])
-with open(home + '/NPI/code_output/figs/Fig1_pickles/sims_con_lowE_lowk.pickle', 'wb') as handle:
+with open(home + '/NPI/code_output/figs/Sheen_Fig1_pickles/sims_con_lowE_lowk.pickle', 'wb') as handle:
     pickle.dump(sims_con, handle, protocol=pickle.HIGHEST_PROTOCOL)
-with open(home + '/NPI/code_output/figs/Fig1_pickles/sims_trt_lowE_lowk.pickle', 'wb') as handle:
+with open(home + '/NPI/code_output/figs/Sheen_Fig1_pickles/sims_trt_lowE_lowk.pickle', 'wb') as handle:
     pickle.dump(sims_trt, handle, protocol=pickle.HIGHEST_PROTOCOL)
         
