@@ -1,4 +1,4 @@
-### Description: This file contains three functions used to calculate the required sample
+### Description: This file contains three functions used to calculate the approximate required sample
 ### size for a RCT of a non-pharmaceutical intervention.
 ### - t.test.calcs: function to calculate power, effect size, or sample size per arm in two-sided two-sample 
 ###   t-test with equal arm sizes and unequal variances:
