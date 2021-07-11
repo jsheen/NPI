@@ -139,9 +139,6 @@ for param_set in param_sets:
                 deg = 0
                 deg = np.random.negative_binomial(k_overdispersion, p)
                 z.append(deg)
-            for i in range(len(z)):
-                if (z[i] == 0):
-                    z[i] == 1
             if (sum(z) % 2 == 0):
                 continue_loop = False
         G=nx.configuration_model(z)
