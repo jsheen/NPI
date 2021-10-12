@@ -4,7 +4,6 @@
 # @description: script to create csv of ttest results matching on non-infectious individuals
 #
 # ------------------------------------------------------------------------------
-source("~/NPI/code/generate_results/NPI_SS_Formulae.R")
 # Get all parameters -----------------------------------------------------------
 param_sets <- c()
 param_sets_dex <- 1
@@ -102,15 +101,11 @@ for (param_set in param_sets) {
   var_It1_trt <- var(It1s_trt)
   mean_It1_con <- mean(It1s_con)
   var_It1_con <- var(It1s_con)
-  approx <- SScalc.samp(Rt1=mean_Rt1, Rt0=mean_Rt0, 
-                           k1=k_overdispersion, k0=k_overdispersion, 
-                           m=nsample, n=N_cluster, EIt=(mean_It / N_cluster),
-                           pow=.8, alpha=.05, N=NULL)
-  new_row <- data.frame(matrix(nrow=1, ncol=20))
-  colnames(new_row) <- c("E_It", "N", "R0", "k", "effect", "inter_day", "mean_Rt0", 
+  new_row <- data.frame(matrix(nrow=1, ncol=19))
+  colnames(new_row) <- c("E_It", "N", "R0", "k", "inter_day", "effect", "mean_Rt0", 
                          "var_Rt0", "mean_Rt1", "var_Rt1", 
                          "mean_It", "var_It", "mean_It1_con", "var_It1_con", "mean_It1_trt", "var_It1_trt",
-                         "nsample", "approx",
+                         "nsample",
                          "sufficient_ncluster", "adjusted_sufficient_ncluster")
   new_row$E_It <- expected_It_N
   new_row$R0 <- tgt_R0
@@ -123,7 +118,6 @@ for (param_set in param_sets) {
   new_row$var_Rt0 <- var_Rt0
   new_row$mean_Rt1 <- mean_Rt1
   new_row$var_Rt1 <- var_Rt1
-  new_row$approx <- approx
   new_row$sufficient_ncluster <- sufficient_ncluster
   new_row$adjusted_sufficient_ncluster <- adjusted_sufficient_ncluster
   new_row$mean_It <- mean_It / N_cluster

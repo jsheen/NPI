@@ -10,22 +10,19 @@ Created on Tue Jan 26 20:40:47 2021
 """
 # Import libraries and set seeds ----------------------------------------------
 import numpy as np
-import random
-import matplotlib.pyplot as plt
+import pandas as pd
 import statistics
 import networkx as nx
-from collections import defaultdict, Counter
+from collections import defaultdict
 import EoN
 import math
 from pathlib import Path
 home = str(Path.home())
-random.seed(1)
-gen = np.random.Generator(np.random.PCG64(1))
 # Create parameter sets to run ------------------------------------------------
 rts = [1.5, 2]
 overdispersions = [0.1, 0.4, 0.7]
-clusters = [1000, 10000]
 effects = [0.2, 0.4]
+clusters = [10000]
 eits = [0.005]
 param_sets = []
 for i in rts:
@@ -33,7 +30,7 @@ for i in rts:
         for k in clusters:
             for l in effects:
                 for m in eits:
-                	if (k == 10000 and j == 0.1):
+                    if (k == 10000 and j == 0.1):
                         param_sets.append([i, j, k, l , 0.0045])
                     else:
                         param_sets.append([i, j, k, l , m])
@@ -46,6 +43,7 @@ for i in rts:
             for l in effects:
                 for m in eits:
                     param_sets.append([i, j, k, l , m])
+
 # For each parameter set, create 3,000 simulations ----------------------------
 for param_set in param_sets:
     tgt_R0 = param_set[0]
@@ -54,6 +52,10 @@ for param_set in param_sets:
     effect = param_set[3]
     expected_It_N = param_set[4]
     mean_degree = 15
+    p = 1.0 - mean_degree / (mean_degree + k_overdispersion)
+    beta_and_day = pd.read_csv(home + "/NPI/code_output/prelim/" + str(tgt_R0) + "_" + str(N_cluster) + "_" + str(k_overdispersion) + "_" + str(expected_It_N) + ".csv", header=None)
+    final_beta = beta_and_day[0][0]
+    interrupt_t = beta_and_day[1][0]
     initial_infections_per_cluster = None
     if N_cluster == 100:
         initial_infections_per_cluster = 1
@@ -70,54 +72,6 @@ for param_set in param_sets:
     one_gen_time = ave_inc_period + ave_inf_period
     if expected_It_N <= initial_infections_per_cluster / N_cluster:
         raise NameError("Script assumes expected It / N strictly < initial infections per cluster / N.")
-    # Joel C Miller's methods to estimate_R0 ----------------------------------
-    def get_Pk(G):
-        Nk = Counter(dict(G.degree()).values())
-        Pk = {x:Nk[x]/float(G.order()) for x in Nk.keys()}
-        return Pk
-    def get_PGFPrime(Pk):
-        maxk = max(Pk.keys())
-        ks = np.linspace(0,maxk, maxk+1)
-        Pkarray = np.array([Pk.get(k,0) for k in ks])
-        return lambda x: Pkarray.dot(ks*x**(ks-1))
-    def get_PGFDPrime(Pk):
-        maxk = max(Pk.keys())
-        ks = np.linspace(0,maxk, maxk+1)
-        Pkarray = np.array([Pk.get(k,0) for k in ks])
-        return lambda x: Pkarray.dot(ks*(ks-1)*x**(ks-2))
-    def estimate_R0(G, tau = None, gamma = None):
-        transmissibility = tau/(tau+gamma)
-        Pk = get_Pk(G)
-        psiDPrime = get_PGFDPrime(Pk)
-        psiPrime = get_PGFPrime(Pk)
-        return transmissibility * psiDPrime(1.)/psiPrime(1.)
-    # Find median beta that leads to desired tgt_R0 (500 sims) ----------------
-    p = 1.0 - mean_degree / (mean_degree + k_overdispersion)
-    beta_lst = []
-    for i in range(500):
-        if (i % 100 == 0):
-            print(i)
-        continue_loop = True
-        while (continue_loop):
-            z = []
-            for i in range(N_cluster):
-                deg = 0
-                deg = np.random.negative_binomial(k_overdispersion, p)
-                z.append(deg)
-            if (sum(z) % 2 == 0):
-                continue_loop = False
-        G=nx.configuration_model(z)
-        G=nx.Graph(G)
-        G.remove_edges_from(nx.selfloop_edges(G))
-        est_R0=3.3
-        beta=0.04
-        while est_R0 > tgt_R0:
-            beta = beta - 0.0001
-            est_R0 = estimate_R0(G, tau=beta, gamma=1/ave_inf_period)
-        beta_lst.append(beta)
-    plt.hist(beta_lst)
-    print("Median beta value for tgt_R0: " + str(statistics.median(beta_lst)))
-    beta = statistics.median(beta_lst)
     # Create graphs for input to Gillespie algorithm --------------------------
     H = nx.DiGraph()
     H.add_node('S')
@@ -125,67 +79,11 @@ for param_set in param_sets:
     H.add_edge('I', 'R', rate = 1 / ave_inf_period)
     return_statuses = ('S', 'E', 'I', 'R')
     J = nx.DiGraph()
-    J.add_edge(('I', 'S'), ('I', 'E'), rate = beta, weight_label='transmission_weight')
+    J.add_edge(('I', 'S'), ('I', 'E'), rate = final_beta, weight_label='transmission_weight')
     J_treat = nx.DiGraph()
-    J_treat.add_edge(('I', 'S'), ('I', 'E'), rate = ((1 - effect) * beta), weight_label='transmission_weight')
-    # Find day on average when expected_It_N of active infections (1000 sims) -
-    nsim = 1000
-    I_series = []
-    while (len(I_series) < nsim):
-        if (len(I_series) % 100 == 0):
-            print(len(I_series))
-        continue_loop = True
-        while (continue_loop):
-            z = []
-            for i in range(N_cluster):
-                deg = 0
-                deg = np.random.negative_binomial(k_overdispersion, p)
-                z.append(deg)
-            for i in range(len(z)):
-                if (z[i] == 0):
-                    z[i] == 1
-            if (sum(z) % 2 == 0):
-                continue_loop = False
-        G=nx.configuration_model(z)
-        G=nx.Graph(G)
-        G.remove_edges_from(nx.selfloop_edges(G))
-        node_attribute_dict = {node: 1 for node in G.nodes()}
-        edge_attribute_dict = {edge: 1 for edge in G.edges()}
-        nx.set_node_attributes(G, values=node_attribute_dict, name='expose2infect_weight')
-        nx.set_edge_attributes(G, values=edge_attribute_dict, name='transmission_weight')
-        IC = defaultdict(lambda: 'S')
-        for node in range(initial_infections_per_cluster):
-            IC[node] = 'I'
-        t, S, E, I, R = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax = 200)
-        next_t = 0
-        to_add_row = []
-        for t_dex in range(len(t)):
-            if t[t_dex] >= next_t:
-                to_add_row.append(I[t_dex])
-                next_t += 1
-        I_series.append(to_add_row)
-    med_t_one_pct = None
-    # Find first day of sim where the ave. num. of infects >= expected_It_N ---
-    for day_dex in range(nsim):
-        focal_dist = []
-        for I_series_dex in range(len(I_series)):
-            if len(I_series[I_series_dex]) > day_dex:
-                focal_dist.append(I_series[I_series_dex][day_dex] / N_cluster)
-        if len(focal_dist) <= 100:
-            raise NameError("Not enough simulations (<10%) to get average number of infections on this day.")
-        print(len(focal_dist))
-        print(statistics.mean(focal_dist))
-        if statistics.mean(focal_dist) >= expected_It_N:
-            med_t_one_pct = day_dex
-            break
+    J_treat.add_edge(('I', 'S'), ('I', 'E'), rate = ((1 - effect) * final_beta), weight_label='transmission_weight')
     # Set threshold value of number of infections at time t -------------------
     threshold = 1
-    if N_cluster == 1000:
-        threshold = 1
-    elif N_cluster == 100:
-        threshold = 1
-    elif N_cluster == 10000:
-        threshold = 1
     # Simulate epidemics with/without treatment of effect reduction in beta ---
     nsim = 3000
     It_It1con_It1trt = []
@@ -199,7 +97,6 @@ for param_set in param_sets:
         while (continue_loop):
             z = []
             for i in range(N_cluster):
-                deg = 0
                 deg = np.random.negative_binomial(k_overdispersion, p)
                 z.append(deg)
             if (sum(z) % 2 == 0):
@@ -214,7 +111,7 @@ for param_set in param_sets:
         IC = defaultdict(lambda: 'S')
         for node in range(initial_infections_per_cluster):
             IC[node] = 'I'
-        full_first_half = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax = math.ceil(med_t_one_pct), return_full_data=True) 
+        full_first_half = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax = math.ceil(interrupt_t), return_full_data=True) 
         t_first_half = full_first_half.t()
         S_first_half = full_first_half.S()
         E_first_half = full_first_half.summary()[1]['E']
@@ -310,6 +207,6 @@ for param_set in param_sets:
         out_f.write(",")
         out_f.write(str(statistics.mean(E_It)))
         out_f.write(",")
-        out_f.write(str(beta))
+        out_f.write(str(final_beta))
         out_f.write(",")
-        out_f.write(str(med_t_one_pct))
+        out_f.write(str(interrupt_t))

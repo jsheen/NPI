@@ -15,14 +15,16 @@ import numpy as np
 import random
 import math
 from scipy.stats import ttest_ind as ttest_ind
+from pathlib import Path
+home = str(Path.home())
 import pandas as pd
 random.seed(1)
 gen = np.random.Generator(np.random.PCG64(1))
 # Create parameter sets to run ------------------------------------------------
 nsim = 10000
-rts = [1.5, 2]
-overdispersions = [0.1, 0.4, 0.7]
-effects = [0.2, 0.4]
+rts = [2]
+overdispersions = [0.7]
+effects = [0.4]
 clusters = [1000, 10000]
 eits = [0.005]
 nsamples = [100, 1000]
