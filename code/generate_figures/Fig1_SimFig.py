@@ -235,7 +235,7 @@ for i in range(len(R_cons)):
 lgd = fig.legend(handles=handles, loc='lower center')
 
 # Save figure -----------------------------------------------------------------
-fig.savefig(home + '/NPI/code_output/figs/Fig1.tiff', dpi=600, bbox_extra_artists=(lgd,), bbox_inches='tight')
-fig.savefig(home + '/NPI/code_output/figs/Fig1.png', dpi=72, bbox_extra_artists=(lgd,), bbox_inches='tight')
+fig.savefig(home + '/NPI/code_output/figs/Sheen_Fig1.tiff', dpi=600, bbox_extra_artists=(lgd,), bbox_inches='tight')
+fig.savefig(home + '/NPI/code_output/figs/Sheen_Fig1.png', dpi=72, bbox_extra_artists=(lgd,), bbox_inches='tight')
 
         

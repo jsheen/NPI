@@ -3,8 +3,6 @@
 """
 Created on Wed May  5 11:22:06 2021
 
-@author: Justin Sheen
-
 @description: algorithm to find sufficient number of clusters when matching on
               number of susceptible individuals and performing a paired one-sample 
               t-test on the differences of the outcome.
@@ -88,8 +86,12 @@ def get_power(It_It1con_It1trt, cluster_num, nsample):
             del St_ItIt1[index_clus2]
             del St_ItIt1[0]
         diffs = [x[0][1] - x[1][2] for x in St_ItIt1_con_trt]
+        if len(diffs) != ncluster:
+            raise NameError("Incorrect number of pairs.")
         p_val = ttest_1samp(diffs, popmean=0, alternative="greater")[1]
         p_vals.append(p_val)
+    if len(p_vals) != nsim:
+        raise NameError("Incorrect number of p_vals.")
     power = len(np.where(np.array(p_vals) <= 0.05)[0]) / len(p_vals)
     return power
 def dac(It_It1con_It1trt, min_cluster, max_cluster, nsample, iters):

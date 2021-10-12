@@ -3,8 +3,6 @@
 """
 Created on Tue Jan 26 20:40:47 2021
 
-@author: Justin Sheen
-
 @description: script used to create cluster simulations, with and
               without an enacted NPI intervention on day 28 of simulation.
 
@@ -127,7 +125,7 @@ for param_set in param_sets:
     J_treat = nx.DiGraph()
     J_treat.add_edge(('I', 'S'), ('I', 'E'), rate = ((1 - effect) * beta), weight_label='transmission_weight')
     # Set day of intervention at day 28 ---------------------------------------
-    med_t_one_pct = 28
+    med_t = 28
     # Set threshold value of number of infections at time t -------------------
     threshold = 1
     if N_cluster == 1000:
@@ -164,7 +162,7 @@ for param_set in param_sets:
         IC = defaultdict(lambda: 'S')
         for node in range(initial_infections_per_cluster):
             IC[node] = 'I'
-        full_first_half = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax = math.ceil(med_t_one_pct), return_full_data=True) 
+        full_first_half = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax = math.ceil(med_t), return_full_data=True) 
         t_first_half = full_first_half.t()
         S_first_half = full_first_half.S()
         E_first_half = full_first_half.summary()[1]['E']
@@ -195,17 +193,23 @@ for param_set in param_sets:
             one_gen_S_trt, one_gen_E_trt, one_gen_I_trt, one_gen_R_trt = (None,) * 4
             two_gen_S_trt, two_gen_E_trt, two_gen_I_trt, two_gen_R_trt = (None,) * 4
             three_gen_S_trt, three_gen_E_trt, three_gen_I_trt, three_gen_R_trt = (None,) * 4
+            if_con_gen_one = 0
+            if_con_gen_two = 0
             for t_dex_con in range(len(t_second_half_con)):
                 if t_second_half_con[t_dex_con] >= np.ceil(one_gen_time) and (one_gen_S_con is None):
                     one_gen_S_con = S_second_half_con[t_dex_con]
                     one_gen_E_con = E_second_half_con[t_dex_con]
                     one_gen_I_con = I_second_half_con[t_dex_con]
                     one_gen_R_con = R_second_half_con[t_dex_con]
+                    if_con_gen_one += 1
                 if t_second_half_con[t_dex_con] >= np.ceil(one_gen_time) * 2 and (two_gen_S_con is None):
                     two_gen_S_con = S_second_half_con[t_dex_con]
                     two_gen_E_con = E_second_half_con[t_dex_con]
                     two_gen_I_con = I_second_half_con[t_dex_con]
                     two_gen_R_con = R_second_half_con[t_dex_con]
+                    if_con_gen_two += 1
+            if if_con_gen_one > 1 or if_con_gen_two > 1:
+                raise NameError("If statement used more than once. (control)")
             three_gen_S_con = S_second_half_con[-1]
             three_gen_E_con = E_second_half_con[-1]
             three_gen_I_con = I_second_half_con[-1]
@@ -218,17 +222,23 @@ for param_set in param_sets:
             if two_gen_E_con is None: two_gen_E_con = E_second_half_con[-1]
             if two_gen_I_con is None: two_gen_I_con = I_second_half_con[-1]
             if two_gen_R_con is None: two_gen_R_con = R_second_half_con[-1]
+            if_trt_gen_one = 0
+            if_trt_gen_two = 0
             for t_dex_trt in range(len(t_second_half_trt)):
                 if t_second_half_trt[t_dex_trt] >= np.ceil(one_gen_time) and (one_gen_S_trt is None):
                     one_gen_S_trt = S_second_half_trt[t_dex_trt]
                     one_gen_E_trt = E_second_half_trt[t_dex_trt]
                     one_gen_I_trt = I_second_half_trt[t_dex_trt]
                     one_gen_R_trt = R_second_half_trt[t_dex_trt]
+                    if_trt_gen_one += 1
                 if t_second_half_trt[t_dex_trt] >= np.ceil(one_gen_time) * 2 and (two_gen_S_trt is None):
                     two_gen_S_trt = S_second_half_trt[t_dex_trt]
                     two_gen_E_trt = E_second_half_trt[t_dex_trt]
                     two_gen_I_trt = I_second_half_trt[t_dex_trt]
                     two_gen_R_trt = R_second_half_trt[t_dex_trt]
+                    if_trt_gen_two += 1
+            if if_trt_gen_one > 1 or if_trt_gen_two > 1:
+                raise NameError("If statement used more than once. (treatment)")
             three_gen_S_trt = S_second_half_trt[-1]
             three_gen_E_trt = E_second_half_trt[-1]
             three_gen_I_trt = I_second_half_trt[-1]
@@ -262,4 +272,4 @@ for param_set in param_sets:
         out_f.write(",")
         out_f.write(str(beta))
         out_f.write(",")
-        out_f.write(str(med_t_one_pct))
+        out_f.write(str(med_t))

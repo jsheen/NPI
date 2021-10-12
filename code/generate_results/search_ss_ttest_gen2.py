@@ -3,8 +3,6 @@
 """
 Created on Wed Apr 14 11:10:46 2021
 
-@author: Justin Sheen
-
 @description: algorithm to find sufficient number of clusters two generations
               after intervention when performing a two-sample Welch's t-test 
               (unequal variances).
@@ -87,8 +85,12 @@ def get_power(It_It1con_It1trt, cluster_num, nsample):
             sampled_It1_trt = gen.multivariate_hypergeometric([St1, Et1, It1, Rt1], nsample=nsample, size=1)[0][2]
             log_It1It_trt = np.log((sampled_It1_trt + 1) / (sampled_It_trt + 1))
             ItIt1_trt.append(log_It1It_trt)
+        if len(ItIt1_con) != ncluster or len(ItIt1_trt) != ncluster:
+            raise NameError("Incorrect number of clusters.")
         p_val = ttest_ind(ItIt1_con, ItIt1_trt, alternative='greater', equal_var=False)[1]
         p_vals.append(p_val)
+    if len(p_vals) != nsim:
+        raise NameError("Incorrect number of p_vals.")
     power = len(np.where(np.array(p_vals) <= 0.05)[0]) / len(p_vals)
     return power
 def dac(It_It1con_It1trt, min_cluster, max_cluster, nsample):

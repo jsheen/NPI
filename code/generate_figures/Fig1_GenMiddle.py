@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun  2 23:48:31 2021
-
-@author: Justin Sheen
-
+Created on Wed Jun  2 23:47:59 2021
 @description: script used to create the figures showing the simulations 
-              trajectories for lower effect size and lower k (higher overdispersion).
-
+              trajectories for lower effect size.
 """
 # Import libraries, set seeds and parameters -------------------------------
 import numpy as np
@@ -25,14 +21,14 @@ home = str(Path.home())
 random.seed(1)
 gen = np.random.Generator(np.random.PCG64(1))
 nsim = 1000
-k_overdispersion = 0.1
+k_overdispersion = 0.4
 N_cluster = 1000
 effect = 0.2
 mean_degree = 15
 p = 1.0 - mean_degree / (mean_degree + k_overdispersion)
 threshold = 1
 initial_infections_per_cluster = 4
-beta = 0.0048
+beta = 0.0072
 med_t_one_pct = 30
 incperiod_shape = 5.807
 incperiod_rate = 1 / 0.948
@@ -150,8 +146,8 @@ while (len(sims_con) < nsim):
         R_trt = None
     sims_con.append([t_con, S_con, E_con, I_con, R_con])
     sims_trt.append([t_trt, S_trt, E_trt, I_trt, R_trt])
-with open(home + '/NPI/code_output/figs/Fig1_pickles/sims_con_lowE_lowk.pickle', 'wb') as handle:
+with open(home + '/NPI/code_output/figs/Sheen_Fig1_pickles/sims_con_lowE.pickle', 'wb') as handle:
     pickle.dump(sims_con, handle, protocol=pickle.HIGHEST_PROTOCOL)
-with open(home + '/NPI/code_output/figs/Fig1_pickles/sims_trt_lowE_lowk.pickle', 'wb') as handle:
+with open(home + '/NPI/code_output/figs/Sheen_Fig1_pickles/sims_trt_lowE.pickle', 'wb') as handle:
     pickle.dump(sims_trt, handle, protocol=pickle.HIGHEST_PROTOCOL)
         
