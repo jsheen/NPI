@@ -22,7 +22,7 @@ home = str(Path.home())
 rts = [1.5, 2]
 overdispersions = [0.1, 0.4, 0.7]
 effects = [0.2, 0.4]
-clusters = [10000]
+clusters = [1000, 10000]
 eits = [0.005]
 param_sets = []
 for i in rts:

@@ -17,9 +17,9 @@ import EoN
 from pathlib import Path
 home = str(Path.home())
 # Create parameter sets to run ------------------------------------------------
-rts = [1.5]
-overdispersions = [0.1]
-N_clusters = [1000]
+rts = [2]
+overdispersions = [0.7]
+N_clusters = [10000]
 eits = [0.005]
 param_sets = []
 for i in rts:
@@ -30,14 +30,15 @@ for i in rts:
                        param_sets.append([i, j, k, 0.0045]) 
                 else:
                        param_sets.append([i, j, k, l])
+"""
 N_clusters = [100]
 eits = [0.02]
-param_sets = []
 for i in rts:
     for j in overdispersions:
         for k in N_clusters:
             for l in eits:
                 param_sets.append([i, j, k, l])
+"""
 # For each parameter set, create 3,000 simulations ----------------------------
 for param_set in param_sets:
     tgt_R0 = param_set[0]
