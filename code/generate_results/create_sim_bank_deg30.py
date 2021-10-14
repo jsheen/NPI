@@ -20,7 +20,8 @@ home = str(Path.home())
 # Create parameter sets to run ------------------------------------------------
 rts = [1.5]
 overdispersions = [0.1]
-effects = [0.2]
+effects = [0.4]
+"""
 clusters = [1000, 10000]
 eits = [0.005]
 param_sets = []
@@ -33,6 +34,8 @@ for i in rts:
                         param_sets.append([i, j, k, l , 0.0045])
                     else:
                         param_sets.append([i, j, k, l , m])
+"""
+param_sets = []
 clusters = [100]
 eits = [0.02]
 for i in rts:

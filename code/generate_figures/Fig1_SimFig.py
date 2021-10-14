@@ -68,8 +68,12 @@ for i in range(200):
         for comm_num in range(n_cluster):
             if len(R_con_full[comm_num]) > t:
                 R_con_sum += R_con_full[comm_num][t]
+            else:
+                R_con_sum += R_con_full[comm_num][-1]
             if len(R_trt_full[comm_num]) > t:
                 R_trt_sum += R_trt_full[comm_num][t]
+            else:
+                R_trt_sum += R_trt_full[comm_num][-1]
         R_con_sums.append(R_con_sum)
         R_trt_sums.append(R_trt_sum)
     R_cons.append(R_con_sums)
@@ -83,7 +87,7 @@ for i in range(len(R_cons)):
     ax1.plot(list(range(len(R_trts[i]))), newList2, color='grey', linewidth=0.5, alpha=0.5)
     ax1.set_ylabel('cum. incidence')
     ax1.set_xlim([11, 63])
-    ax1.set_ylim([0, 0.07])
+    ax1.set_ylim([0, 0.075])
     ax1.axvline(x=41, color='black', linewidth=0.8, linestyle='-.')
     ax1.axvline(x=30, color='black', linewidth=0.8, linestyle='-.')
     custom_lines = [Line2D([0], [0], color='orange', lw=4),
@@ -139,8 +143,12 @@ for i in range(200):
         for comm_num in range(n_cluster):
             if len(R_con_full[comm_num]) > t:
                 R_con_sum += R_con_full[comm_num][t]
+            else:
+                R_con_sum += R_con_full[comm_num][-1]
             if len(R_trt_full[comm_num]) > t:
                 R_trt_sum += R_trt_full[comm_num][t]
+            else:
+                R_trt_sum += R_trt_full[comm_num][-1]
         R_con_sums.append(R_con_sum)
         R_trt_sums.append(R_trt_sum)
     R_cons.append(R_con_sums)
@@ -153,7 +161,7 @@ for i in range(len(R_cons)):
     ax2.plot(list(range(len(R_trts[i]))), newList2, color='grey', linewidth=0.5, alpha=0.5)
     ax2.set_ylabel('cum. incidence')
     ax2.set_xlim([11, 63])
-    ax2.set_ylim([0, 0.07])
+    ax2.set_ylim([0, 0.075])
     ax2.axvline(x=41, color='black', linewidth=0.8, linestyle='-.')
     ax2.axvline(x=30, color='black', linewidth=0.8, linestyle='-.')
     custom_lines = [Line2D([0], [0], color='orange', lw=4),
@@ -210,8 +218,12 @@ for i in range(200):
         for comm_num in range(n_cluster):
             if len(R_con_full[comm_num]) > t:
                 R_con_sum += R_con_full[comm_num][t]
+            else:
+                R_con_sum += R_con_full[comm_num][-1]
             if len(R_trt_full[comm_num]) > t:
                 R_trt_sum += R_trt_full[comm_num][t]
+            else:
+                R_trt_sum += R_trt_full[comm_num][-1]
         R_con_sums.append(R_con_sum)
         R_trt_sums.append(R_trt_sum)
     R_cons.append(R_con_sums)
@@ -225,7 +237,7 @@ for i in range(len(R_cons)):
     ax3.set_ylabel('cum. incidence')
     ax3.set_xlabel('Days since initial infection')
     ax3.set_xlim([11, 63])
-    ax3.set_ylim([0, 0.07])
+    ax3.set_ylim([0, 0.075])
     ax3.axvline(x=41, color='black', linewidth=0.8, linestyle='-.')
     ax3.axvline(x=30, color='black', linewidth=0.8, linestyle='-.')
     custom_lines = [Line2D([0], [0], color='orange', lw=4),

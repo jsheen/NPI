@@ -6,7 +6,7 @@ require(reshape2)
 require(ggplot2)
 require(gridExtra)
 require(grid)
-lb <- read.csv("~/NPI/code_output/tables/ttest_rerun.csv", stringsAsFactors = F)
+lb <- read.csv("~/NPI/code_output/tables/ttest.csv", stringsAsFactors = F)
 lb2 <- read.csv("~/NPI/code_output/tables/ttest_gen2.csv", stringsAsFactors = F)
 lb3 <- read.csv("~/NPI/code_output/tables/ttest_gen3.csv", stringsAsFactors = F)
 param_sets <- list()
@@ -94,8 +94,8 @@ for (N in Ns) {
     subplot_20_2$title <- paste0('N = ', N, ", k = ", k)
     if (N == 10000 & k == 0.1) {
       subplot_final <- ggplot() + 
-        geom_line(subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
-        geom_line(subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        geom_line(size=1.5, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(size=1.5, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('')+
         xlab('')+
         theme_bw()+
@@ -108,10 +108,10 @@ for (N in Ns) {
         scale_color_manual(values=c('black', 'dodgerblue'))
     } else if (N == 1000 & k == 0.1) {
       subplot_final <- ggplot() + 
-        geom_line(subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
-        geom_line(subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
-        geom_line(subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
-        geom_line(subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        geom_line(size=1.5, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
+        geom_line(size=1.5, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(size=1.5, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
+        geom_line(size=1.5, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('Number of Clusters Per Arm')+
         xlab('')+
         theme_bw()+
@@ -124,10 +124,10 @@ for (N in Ns) {
         scale_color_manual(values=c('black', 'dodgerblue'))
     } else if (N == 10000 & k == 0.4) {
       subplot_final <- ggplot() + 
-        geom_line(subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
-        geom_line(subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
-        geom_line(subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
-        geom_line(subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        geom_line(size=1.5, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
+        geom_line(size=1.5, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(size=1.5, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
+        geom_line(size=1.5, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('')+
         xlab('Generation of Sampling')+
         theme_bw()+
@@ -140,10 +140,10 @@ for (N in Ns) {
         scale_color_manual(values=c('black', 'dodgerblue'))
     } else {
       subplot_final <- ggplot() + 
-        geom_line(subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
-        geom_line(subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
-        geom_line(subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
-        geom_line(subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        geom_line(size=1.5, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
+        geom_line(size=1.5, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(size=1.5, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
+        geom_line(size=1.5, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('')+
         xlab('')+
         theme_bw()+
@@ -186,5 +186,7 @@ for (N in Ns) {
 ps[[4]] <- ggplot() + theme_void()
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.tiff", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
        width=13, height=16, units='in', dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.png", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
+       width=13, height=16, units='in', dpi=72)
 
 

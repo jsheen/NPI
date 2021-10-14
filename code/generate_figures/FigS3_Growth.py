@@ -7,7 +7,7 @@ Created on Tues Oct 12
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 plt.rcParams.update({'font.size': 22})
-plt.rcParams['figure.figsize'] = 6, 16
+plt.rcParams['figure.figsize'] = 20, 5
 import random
 from matplotlib.lines import Line2D
 import pickle
@@ -88,11 +88,12 @@ for i in range(200):
     Rt_cons_sims.append(Rt_cons)
     Rt_trts_sims.append(Rt_trts)
 fig = plt.figure()
-ax1 = fig.add_subplot(311)
+ax1 = fig.add_subplot(131)
 for i in range(len(Rt_cons_sims)):
     ax1.plot(list(range(len(Rt_cons_sims[i]))), Rt_cons_sims[i], color='orange', linewidth=0.5, alpha=0.5)
     ax1.plot(list(range(len(Rt_trts_sims[i]))), Rt_trts_sims[i], color='grey', linewidth=0.5, alpha=0.5)
     ax1.set_ylabel('$I_{t+1} / I_t$')
+    ax1.set_xlabel('Days after intervention')
     ax1.set_xlim([0, 33])
     ax1.set_ylim([0, 2])
     ax1.axhline(y=1, color='black', linewidth=0.8, linestyle='-.')
@@ -168,11 +169,11 @@ for i in range(200):
         Rt_trts.append(Rt_trt)
     Rt_cons_sims.append(Rt_cons)
     Rt_trts_sims.append(Rt_trts)
-ax2 = fig.add_subplot(312)
+ax2 = fig.add_subplot(132)
 for i in range(len(Rt_cons_sims)):
     ax2.plot(list(range(len(Rt_cons_sims[i]))), Rt_cons_sims[i], color='orange', linewidth=0.5, alpha=0.5)
     ax2.plot(list(range(len(Rt_trts_sims[i]))), Rt_trts_sims[i], color='grey', linewidth=0.5, alpha=0.5)
-    ax2.set_ylabel('$I_{t+1} / I_t$')
+    ax2.set_xlabel('Days after intervention')
     ax2.set_xlim([0, 33])
     ax2.set_ylim([0, 2])
     ax2.axhline(y=1, color='black', linewidth=0.8, linestyle='-.')
@@ -248,11 +249,10 @@ for i in range(200):
         Rt_trts.append(Rt_trt)
     Rt_cons_sims.append(Rt_cons)
     Rt_trts_sims.append(Rt_trts)
-ax3 = fig.add_subplot(313)
+ax3 = fig.add_subplot(133)
 for i in range(len(Rt_cons_sims)):
     ax3.plot(list(range(len(Rt_cons_sims[i]))), Rt_cons_sims[i], color='orange', linewidth=0.5, alpha=0.5)
     ax3.plot(list(range(len(Rt_trts_sims[i]))), Rt_trts_sims[i], color='grey', linewidth=0.5, alpha=0.5)
-    ax3.set_ylabel('$I_{t+1} / I_t$')
     ax3.set_xlabel('Days after intervention')
     ax3.set_xlim([0, 33])
     ax3.set_ylim([0, 2])
@@ -261,10 +261,10 @@ for i in range(len(Rt_cons_sims)):
                     Line2D([0], [0], color='grey', lw=4)]
 
 # Plot the legend -------------------------------------------------------------
-lgd = fig.legend(handles=handles, loc='lower center')
+lgd = fig.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.5, -0.05))
 
 # Save figure -----------------------------------------------------------------
-fig.savefig(home + '/NPI/code_output/figs/FigS3.tiff', dpi=600, bbox_extra_artists=(lgd,), bbox_inches='tight')
-fig.savefig(home + '/NPI/code_output/figs/FigS3.png', dpi=72, bbox_extra_artists=(lgd,), bbox_inches='tight')
+fig.savefig(home + '/NPI/code_output/figs/Sheen_FigS3.tiff', dpi=600, bbox_extra_artists=(lgd,), bbox_inches='tight')
+fig.savefig(home + '/NPI/code_output/figs/Sheen_FigS3.png', dpi=72, bbox_extra_artists=(lgd,), bbox_inches='tight')
 
         
