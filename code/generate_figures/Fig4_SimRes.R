@@ -18,16 +18,11 @@ lb_ttest$effect <- factor(lb_ttest$effect)
 plot.4A <- ggplot(lb_ttest) + 
   geom_line(size=1.5, mapping=aes(x=k, y=sufficient_ncluster, color=effect, linetype=factor(R0), group=paste0(nsample,R0,effect,E_It))) + 
   facet_wrap(facets=vars(factor(N, levels=c(100,1000,10000),
-                                labels=c("N = 100","N = 1,000","N = 10,000"))), 
+                                labels=c("n = 100","n = 1,000","n = 10,000"))), 
              nrow=3, ncol=1, scales="free_x") +
   scale_x_continuous(name="k\n", breaks=c(0.1,0.4,0.7), minor_breaks=NULL) +
   scale_color_manual(values = c("0.2" = "steelblue1", "0.4" = "steelblue4")) +
-  #scale_color_continuous("Effect Size",
-  #                       breaks=c(.2,.4),
-  #                       labels=c("20%","40%")) +
-  scale_linetype_discrete(expression(R[0]^C),
-                          breaks=c(1.5,2),
-                          labels=c("1.5","2.0")) +
+  scale_linetype_manual(values = c("1.5" = "dashed", "2" = "solid")) +
   theme_bw() + theme(text=element_text(size=30),
                    axis.title.y = element_text(size=30),
                    axis.title.x = element_text(size=30),
@@ -41,17 +36,12 @@ plot.4B <- ggplot(lb_ttest) +
   geom_line(size=1.5, mapping=aes(x=factor(paste0(perc_sample*100,"%"), levels=c("1%","10%","50%","100%")),
                         y=sufficient_ncluster, color=effect, linetype=factor(R0), group=paste0(R0,effect,k))) + 
   facet_wrap(facets=vars(factor(N, levels=c(100,1000,10000),
-                                labels=c("N = 100","N = 1,000","N = 10,000"))), 
+                                labels=c("n = 100","n = 1,000","n = 10,000"))), 
              nrow=3, ncol=1, scales="free_x") +
   scale_x_discrete("Percent of Individuals \nSampled Per Cluster",
                    breaks=c("1%","10%","50%","100%")) +
   scale_color_manual(values = c("0.2" = "steelblue1", "0.4" = "steelblue4")) +
-  #scale_color_continuous("Effect Size",
-  #                       breaks=c(.2,.4),
-  #                       labels=c("20%","40%")) +
-  scale_linetype_discrete(expression(R[0]^C),
-                          breaks=c(1.5,2),
-                          labels=c("1.5","2.0")) +
+  scale_linetype_manual(values = c("1.5" = "dashed", "2" = "solid")) +
   theme_bw() + theme(text=element_text(size=30),
                      axis.title.y = element_text(size=30),
                      axis.title.x = element_text(size=30),
@@ -65,17 +55,12 @@ plot.4C <- ggplot(lb_ttest) +
   geom_line(size=1.5, mapping=aes(x=factor(paste0(perc_sample*100,"%"), levels=c("1%","10%","50%","100%")),
                         y=indivs_per_arm/1000, color=effect, linetype=factor(R0), group=paste0(R0,effect,k))) + 
   facet_wrap(facets=vars(factor(N, levels=c(100,1000,10000),
-                                labels=c("N = 100","N = 1,000","N = 10,000"))), 
+                                labels=c("n = 100","n = 1,000","n = 10,000"))), 
              nrow=3, ncol=1, scales="free") +
   scale_x_discrete("Percent of Individuals \nSampled Per Cluster",
                    breaks=c("1%","10%","50%","100%")) +
   scale_color_manual(values = c("0.2" = "steelblue1", "0.4" = "steelblue4")) +
-  #scale_color_continuous("Effect Size",
-  #                       breaks=c(.2,.4),
-  #                       labels=c("20%","40%")) +
-  scale_linetype_discrete(expression(R[0]^C),
-                          breaks=c(1.5,2),
-                          labels=c("1.5","2.0")) +
+  scale_linetype_manual(values = c("1.5" = "dashed", "2" = "solid")) +
   theme_bw() + theme(text=element_text(size=30),
                      axis.title.y = element_text(size=30),
                      axis.title.x = element_text(size=30),
@@ -96,17 +81,15 @@ legend_plot <- ggplot(lb_ttest) +
   geom_line(size=1.5, mapping=aes(x=factor(paste0(perc_sample*100,"%"), levels=c("1%","10%","50%","100%")),
                                   y=indivs_per_arm/1000, color=effect, linetype=factor(R0), group=paste0(R0,effect,k))) + 
   facet_wrap(facets=vars(factor(N, levels=c(100,1000,10000),
-                                labels=c("N = 100","N = 1,000","N = 10,000"))), 
+                                labels=c("n = 100","n = 1,000","n = 10,000"))), 
              nrow=3, ncol=1, scales="free") +
   scale_x_discrete("Percent of Individuals \nSampled Per Cluster",
                    breaks=c("1%","10%","50%","100%")) +
   scale_color_manual("Effect Size", values = c("0.2" = "steelblue1", "0.4" = "steelblue4")) +
-  #scale_color_continuous("Effect Size",
-  #                       breaks=c(.2,.4),
-  #                       labels=c("20%","40%")) +
-  scale_linetype_discrete(expression(R[0]^C),
-                          breaks=c(1.5,2),
-                          labels=c("1.5","2.0")) +
+  scale_linetype_manual(expression(R[0]^C), values = c("1.5" = "dashed", "2" = "solid")) +
+  #scale_linetype_discrete(expression(R[0]^C),
+  #                        breaks=c(1.5,2),
+  #                        labels=c("1.5","2")) +
   theme_bw() + theme(text=element_text(size=30),
                      axis.title.y = element_text(size=30),
                      axis.title.x = element_text(size=30),
@@ -125,7 +108,6 @@ g_legend<-function(a.gplot){
   legend <- tmp$grobs[[leg]]
   return(legend)}
 mylegend<-g_legend(legend_plot)
-#legend_grid <- grid.draw(mylegend)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig4_Fig5_legend.tiff", mylegend,
        width=12, height=1, units='in', dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig4_Fig5_legend.png", mylegend,

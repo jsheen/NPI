@@ -18,10 +18,9 @@ import math
 from pathlib import Path
 home = str(Path.home())
 # Create parameter sets to run ------------------------------------------------
-rts = [1.5]
-overdispersions = [0.1]
+rts = [2]
+overdispersions = [0.7]
 effects = [0.4]
-"""
 clusters = [1000, 10000]
 eits = [0.005]
 param_sets = []
@@ -44,7 +43,7 @@ for i in rts:
             for l in effects:
                 for m in eits:
                     param_sets.append([i, j, k, l , m])
-
+"""
 # For each parameter set, create 3,000 simulations ----------------------------
 for param_set in param_sets:
     tgt_R0 = param_set[0]
@@ -52,7 +51,7 @@ for param_set in param_sets:
     N_cluster = param_set[2]
     effect = param_set[3]
     expected_It_N = param_set[4]
-    mean_degree = 15
+    mean_degree = 30
     p = 1.0 - mean_degree / (mean_degree + k_overdispersion)
     beta_and_day = pd.read_csv(home + "/NPI/code_output/prelim/" + str(tgt_R0) + "_" + str(N_cluster) + "_" + str(k_overdispersion) + "_" + str(expected_It_N) + "_deg30.csv", header=None)
     final_beta = beta_and_day[0][0]

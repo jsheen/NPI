@@ -1,10 +1,3 @@
-### Description: This file contains three functions used to calculate the approximate required sample
-### size for a RCT of a non-pharmaceutical intervention.
-### - t.test.calcs: function to calculate power, effect size, or sample size per arm in two-sided two-sample 
-###   t-test with equal arm sizes and unequal variances:
-### - SScalc.full: function for required sample size with assumption of full testing: everyone in the cluster is tested
-### - SScalc.samp: function for requried sample size without assumption of full testing
-
 ### Function to calculate power, effect size, or sample size per arm in two-sided two-sample t-test 
 #### with equal arm sizes and unequal variances:
 t.test.calcs <- function(sd1, sd2, alpha=0.05, N=NULL, delta=NULL, pow=NULL) {
@@ -35,8 +28,8 @@ t.test.calcs <- function(sd1, sd2, alpha=0.05, N=NULL, delta=NULL, pow=NULL) {
 ## k1 is the overdispersion parameter for transmission in the intervention group
 ## k0 is the overdispersion parameter for transmission in the control group
 ## n is the population size for each cluster (assumed constant)
-## EIt is the expected number of infectious individuals at time t, E[I_t].
-## VarIt is the variance of the number of infectious individuals at time t, Var(I_t), across clusters. (This can be left as NULL)
+## EIt is the expected (mean across clusters) proportion of infectious individuals at time t, E[I_t].
+## VarIt is the variance of the proportion of infectious individuals at time t, Var(I_t), across clusters. (This can be left as NULL)
 ## power, alpha, and N: specify 2 and leave 1 as NULL to solve for that one. 
 #### Note that N (or the result if N is null) is the number of clusters in EACH arm
 
@@ -70,7 +63,7 @@ SScalc.full <- function(Rt1, Rt0, k1, k0, n, EIt, VarIt=NULL,
 ## k0 is the overdispersion parameter for transmission in the control group
 ## m is the number of individuals sampled in each cluster at time t+1
 ## n is the population size for each cluster (assumed constant)
-## EIt is the expected number of infectious individuals at time t, E[I_t].
+## EIt is the expected (mean across clusters) proportion of infectious individuals at time t, E[I_t].
 ## power, alpha, and N: specify 2 and leave 1 as NULL to solve for that one. 
 #### Note that N (or the result if N is null) is the number of clusters in EACH arm
 
@@ -88,3 +81,4 @@ SScalc.samp <- function(Rt1, Rt0, k1, k0, m, n, EIt,
     return(t.test.calcs(sd1=sd1, sd2=sd0, alpha=alpha, N=N, delta=Rt1-Rt0, pow=pow))
   }
 }
+
