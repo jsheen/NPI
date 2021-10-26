@@ -5,6 +5,7 @@ code:
 - Folder 1: generate_results (scripts used to generate results of paper)
 - Folder 2: generate_tables (scripts used to generate tables of paper)
 - Folder 3: generate_figures (scripts used to generate figures of paper)
+- ProposedApproach.R: calculate values for proposed approach example
 
 code_output:
 - Folder 1: res (simulation results of paper)
@@ -13,4 +14,4 @@ code_output:
 
 These programs are a work in progress, as we work to improve usability, error-catching, and speed of analysis. If you find errors, please contact Justin Sheen at jsheen (at) princeton (dot) edu.
 
-Last Update: July 11, 2021
+Last Update: October 26, 2021
