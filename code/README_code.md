@@ -1,7 +1,9 @@
-# Scripts used to generate simulation results
+# Approximation formulae scripts and scripts used to generate simulation results
+
+- NPI_SS_Formulae.R: script used to obtain approximate sample sizes needed.
+- ProposedApproach.R: calculate values for proposed approach example
 
 Folder 1: generate_results (scripts used to generate results of paper)
-- NPI_SS_Formulae.R: script used to obtain approximate sample sizes needed.
 - get_intervention_day_beta.py (Algorithm 1): preliminary script to get day of intervention and transmission rate (beta).
 - get_intervention_day_beta_deg8.py (Algorithm 1): preliminary script to get day of intervention and transmission rate (beta) when average degree is 8.
 - get_intervention_day_beta_deg30.py (Algorithm 1): preliminary script to get day of intervention and transmission rate (beta) when average degree is 30.
