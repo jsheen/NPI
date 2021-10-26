@@ -1,6 +1,6 @@
 ### Requires tidyverse package and NPI_SS_Formulae.R commands
 require(tidyverse)
-source(file="NPI_SS_Formulae.R")
+source(file="~/NPI/code/NPI_SS_Formulae.R")
 
 ## Proposed Approach Section Approximations:
 ### Full testing:
