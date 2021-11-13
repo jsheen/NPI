@@ -3,7 +3,7 @@ require(tidyverse)
 require(gridExtra)
 library(ggplot2)
 library(grid)
-source(file="~/NPI/code/generate_results/NPI_SS_Formulae.R")
+source(file="~/NPI/code/NPI_SS_Formulae.R")
 
 ### Load results of simulation sample size calculations
 lb_ttest <- read.csv(file="~/NPI/code_output/tables/ttest.csv", stringsAsFactors = F)

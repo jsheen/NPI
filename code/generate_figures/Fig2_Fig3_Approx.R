@@ -1,7 +1,7 @@
 ### Requires tidyverse package and NPI_SS_Formulae.R commands
 require(tidyverse)
 require(gridExtra)
-source(file="~/NPI/code/generate_results/NPI_SS_Formulae.R")
+source(file="~/NPI/code/NPI_SS_Formulae.R")
 
 
 ### Figure 2: Full Sampling Formula Results
