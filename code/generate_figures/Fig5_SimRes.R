@@ -186,5 +186,7 @@ for (n in ns) {
 ps[[4]] <- ggplot() + theme_void()
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.tiff", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
        width=13, height=16, units='in', dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.eps", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
+       width=13, height=16, units='in', dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.png", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
        width=13, height=16, units='in', dpi=72)

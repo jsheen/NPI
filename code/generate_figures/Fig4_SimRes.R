@@ -73,6 +73,8 @@ plot.4C <- ggplot(lb_ttest) +
 l <- list(plot.4A, ggplot() + theme_void(), plot.4B, ggplot() + theme_void(), plot.4C)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig4.tiff", marrangeGrob(grobs = l, nrow=2, ncol=3, top=NULL),
        width=16.5, height=24, units='in', dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Sheen_Fig4.eps", marrangeGrob(grobs=l, nrow=2, ncol=3, top=NULL),
+       width=16.5, height=24, units='in', dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig4.png", marrangeGrob(grobs = l, nrow=2, ncol=3, top=NULL),
        width=16.5, height=24, units='in', dpi=72)
 
@@ -109,6 +111,8 @@ g_legend<-function(a.gplot){
   return(legend)}
 mylegend<-g_legend(legend_plot)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig4_Fig5_legend.tiff", mylegend,
+       width=12, height=1, units='in', dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Sheen_Fig4_Fig5_legend.eps", mylegend,
        width=12, height=1, units='in', dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig4_Fig5_legend.png", mylegend,
        width=12, height=1, units='in', dpi=72)

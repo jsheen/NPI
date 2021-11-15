@@ -68,6 +68,8 @@ plot_EIt_full <- ggplot(R_full_EIt, mapping=aes(x=EIt, y=full, group=popsize, co
 l <- list(plot_r_k_full, plot_EIt_full)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig2.tiff", marrangeGrob(grobs = l, nrow=1, ncol=2, top=NULL),
        width=16, height=8, units='in', dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Sheen_Fig2.eps", marrangeGrob(grobs = l, nrow=1, ncol=2, top=NULL),
+       width=16, height=8, units='in', dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig2.png", marrangeGrob(grobs = l, nrow=1, ncol=2, top=NULL),
        width=16, height=8, units='in', dpi=72)
 
@@ -174,5 +176,8 @@ plot_sizes <- ggplot(V_sample, mapping=aes(x=sampsize, y=samp, group=popsize, co
 l <- list(plot_r_k, plot_r_delta, plot_sizes)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig3.tiff", marrangeGrob(grobs = l, nrow=1, ncol=3, top=NULL),
        width=24, height=8, units='in', dpi=600)
+ggsave(filename="~/NPI/code_output/figs/Sheen_Fig3.eps", marrangeGrob(grobs = l, nrow=1, ncol=3, top=NULL),
+       width=24, height=8, units='in', dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig3.png", marrangeGrob(grobs = l, nrow=1, ncol=3, top=NULL),
        width=24, height=8, units='in', dpi=72)
+
