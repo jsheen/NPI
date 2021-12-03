@@ -94,64 +94,64 @@ for (n in ns) {
     subplot_20_2$title <- paste0('n = ', n, ", k = ", k)
     if (n == 10000 & k == 0.1) {
       subplot_final <- ggplot() + 
-        geom_line(size=1.5, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
-        geom_line(size=1.5, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        geom_line(size=0.75, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(size=0.75, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('')+
         xlab('')+
         theme_bw()+
-        theme(plot.title = element_text(hjust = 0.5),
+        theme(plot.title = element_text(hjust = 0.25),
               legend.position='none',
-              text = element_text(size=30),
-              axis.title.x = element_text(size=23),
-              axis.title.y = element_text(size=21))+
+              text = element_text(size=14),
+              axis.title.x = element_text(size=12),
+              axis.title.y = element_text(size=12))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('steelblue1', 'steelblue4'))
     } else if (n == 1000 & k == 0.1) {
       subplot_final <- ggplot() + 
-        geom_line(size=1.5, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
-        geom_line(size=1.5, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
-        geom_line(size=1.5, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
-        geom_line(size=1.5, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        geom_line(size=0.75, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
+        geom_line(size=0.75, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(size=0.75, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
+        geom_line(size=0.75, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('Number of Clusters Per Arm')+
         xlab('')+
         theme_bw()+
-        theme(plot.title = element_text(hjust = 0.5),
+        theme(plot.title = element_text(hjust = 0.25),
               legend.position='none',
-              text = element_text(size=30),
-              axis.title.x = element_text(size=23),
-              axis.title.y = element_text(size=21))+
+              text = element_text(size=14),
+              axis.title.x = element_text(size=12),
+              axis.title.y = element_text(size=12))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('steelblue1', 'steelblue4'))
     } else if (n == 10000 & k == 0.4) {
       subplot_final <- ggplot() + 
-        geom_line(size=1.5, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
-        geom_line(size=1.5, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
-        geom_line(size=1.5, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
-        geom_line(size=1.5, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        geom_line(size=0.75, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
+        geom_line(size=0.75, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(size=0.75, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
+        geom_line(size=0.75, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('')+
         xlab('Generation of Sampling')+
         theme_bw()+
-        theme(plot.title = element_text(hjust = 0.5),
+        theme(plot.title = element_text(hjust = 0.25),
               legend.position='none',
-              text = element_text(size=30),
-              axis.title.x = element_text(size=23),
-              axis.title.y = element_text(size=21))+
+              text = element_text(size=14),
+              axis.title.x = element_text(size=12),
+              axis.title.y = element_text(size=12))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('steelblue1', 'steelblue4'))
     } else {
       subplot_final <- ggplot() + 
-        geom_line(size=1.5, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
-        geom_line(size=1.5, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
-        geom_line(size=1.5, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
-        geom_line(size=1.5, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
+        geom_line(size=0.75, subplot_20_1.5, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='dashed')+
+        geom_line(size=0.75, subplot_20_2, mapping=aes(x=x,y=value,group=variable,color='20'), linetype='solid')+
+        geom_line(size=0.75, subplot_40_1.5, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='dashed')+
+        geom_line(size=0.75, subplot_40_2, mapping=aes(x=x,y=value,group=variable,color='40'), linetype='solid')+
         ylab('')+
         xlab('')+
         theme_bw()+
-        theme(plot.title = element_text(hjust = 0.5),
+        theme(plot.title = element_text(hjust = 0.25),
               legend.position='none',
-              text = element_text(size=30),
-              axis.title.x = element_text(size=23),
-              axis.title.y = element_text(size=21))+
+              text = element_text(size=14),
+              axis.title.x = element_text(size=12),
+              axis.title.y = element_text(size=12))+
         facet_grid(. ~ title)+
         scale_color_manual(values=c('steelblue1', 'steelblue4'))
     }
@@ -185,8 +185,6 @@ for (n in ns) {
 }
 ps[[4]] <- ggplot() + theme_void()
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.tiff", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
-       width=13, height=16, units='in', dpi=600)
-ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.eps", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
-       width=13, height=16, units='in', dpi=600)
+       width=7, height=8, units='in', dpi=600)
 ggsave(filename="~/NPI/code_output/figs/Sheen_Fig5.png", marrangeGrob(grobs = ps, nrow=4, ncol=1, top=NULL),
        width=13, height=16, units='in', dpi=72)
