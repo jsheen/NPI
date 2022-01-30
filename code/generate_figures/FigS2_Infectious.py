@@ -109,4 +109,5 @@ ax2.set_title(panel_letter + ' n=' + str(N_cluster))
 
 plt.tight_layout()
 plt.savefig(home + '/NPI/code_output/figs/Sheen_FigS2.tiff', dpi=600, bbox_inches='tight')
+fig.savefig(home + '/NPI/code_output/figs/Sheen_FigS2.eps', dpi=600, bbox_inches='tight')
 plt.savefig(home + '/NPI/code_output/figs/Sheen_FigS2.png', dpi=72, bbox_inches='tight')

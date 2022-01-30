@@ -16,6 +16,7 @@ home = str(Path.home())
 random.seed(0)
 palette = dict(zip(['Control', 'Treatment'], ['orange', 'grey']))
 handles = [mpl.patches.Patch(color=palette[x], label=x) for x in palette.keys()]
+props = dict(boxstyle='round', facecolor='white', alpha=0.5)
 
 # Plotting top panel ----------------------------------------------------------
 with open(home + '/NPI/code_output/figs/Fig1_pickles/sims_con.pickle', 'rb') as handle:
@@ -86,6 +87,8 @@ for i in range(len(R_cons)):
     ax1.plot(list(range(len(R_cons[i]))), newList, color='orange', linewidth=0.5, alpha=0.5)
     ax1.plot(list(range(len(R_trts[i]))), newList2, color='grey', linewidth=0.5, alpha=0.5)
     ax1.set_ylabel('cum. incidence')
+    ax1.text(0.05, 0.95, 'k = 0.4\nβ reduction = 40%', transform=ax1.transAxes, fontsize=17,
+        verticalalignment='top', bbox=props)
     ax1.set_xlim([11, 63])
     ax1.set_ylim([0, 0.075])
     ax1.axvline(x=41, color='black', linewidth=0.8, linestyle='-.')
@@ -160,6 +163,8 @@ for i in range(len(R_cons)):
     ax2.plot(list(range(len(R_cons[i]))), newList, color='orange', linewidth=0.5, alpha=0.5)
     ax2.plot(list(range(len(R_trts[i]))), newList2, color='grey', linewidth=0.5, alpha=0.5)
     ax2.set_ylabel('cum. incidence')
+    ax2.text(0.05, 0.95, 'k = 0.4\nβ reduction = 20%', transform=ax2.transAxes, fontsize=17,
+        verticalalignment='top', bbox=props)
     ax2.set_xlim([11, 63])
     ax2.set_ylim([0, 0.075])
     ax2.axvline(x=41, color='black', linewidth=0.8, linestyle='-.')
@@ -236,6 +241,8 @@ for i in range(len(R_cons)):
     ax3.plot(list(range(len(R_trts[i]))), newList2, color='grey', linewidth=0.5, alpha=0.5)
     ax3.set_ylabel('cum. incidence')
     ax3.set_xlabel('Days since initial infection')
+    ax3.text(0.05, 0.95, 'k = 0.1\nβ reduction = 20%', transform=ax3.transAxes, fontsize=17,
+        verticalalignment='top', bbox=props)
     ax3.set_xlim([11, 63])
     ax3.set_ylim([0, 0.075])
     ax3.axvline(x=41, color='black', linewidth=0.8, linestyle='-.')

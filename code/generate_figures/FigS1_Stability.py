@@ -71,6 +71,7 @@ plt.ylabel('Count')
 plt.title('Algorithm 2 stability')
 plt.tight_layout()
 plt.savefig(home + '/NPI/code_output/figs/Sheen_FigS1.tiff', dpi=600, bbox_inches='tight')
+plt.savefig(home + '/NPI/code_output/figs/Sheen_FigS1.eps', dpi=600, bbox_inches='tight')
 plt.savefig(home + '/NPI/code_output/figs/Sheen_FigS1.png', dpi=72, bbox_inches='tight')
     
                         
