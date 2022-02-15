@@ -1,5 +1,5 @@
 # NPI-CRT-analysis
-Accompanies Sheen, Haushofer, Metcalf, and Kennedy-Shaffer (2021). The Required Size of Cluster Randomized Trials of Non-Pharmaceutical Interventions in Epidemic Settings.
+Accompanies Sheen, Haushofer, Metcalf, and Kennedy-Shaffer (2022). The Required Size of Cluster Randomized Trials of Non-Pharmaceutical Interventions in Epidemic Settings.
 
 code:
 - NPI_SS_Formulae.R: script used to obtain approximate sample sizes needed.
