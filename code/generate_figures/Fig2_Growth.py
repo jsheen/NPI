@@ -16,6 +16,7 @@ home = str(Path.home())
 random.seed(0)
 palette = dict(zip(['Control', 'Treatment'], ['orange', 'grey']))
 handles = [mpl.patches.Patch(color=palette[x], label=x) for x in palette.keys()]
+props = dict(boxstyle='round', facecolor='white', alpha=0.5)
 
 # Plotting top panel ----------------------------------------------------------
 with open(home + '/NPI/code_output/figs/Fig1_pickles/sims_con.pickle', 'rb') as handle:
@@ -92,8 +93,11 @@ ax1 = fig.add_subplot(131)
 for i in range(len(Rt_cons_sims)):
     ax1.plot(list(range(len(Rt_cons_sims[i]))), Rt_cons_sims[i], color='orange', linewidth=0.5, alpha=0.5)
     ax1.plot(list(range(len(Rt_trts_sims[i]))), Rt_trts_sims[i], color='grey', linewidth=0.5, alpha=0.5)
+    ax1.set_title('A')
     ax1.set_ylabel('$I_{t+1} / I_t$')
     ax1.set_xlabel('Days after intervention')
+    ax1.text(0.05, 0.95, 'k = 0.4\nβ reduction = 40%', transform=ax1.transAxes, fontsize=17,
+        verticalalignment='top', bbox=props)
     ax1.set_xlim([0, 33])
     ax1.set_ylim([0, 2])
     ax1.axhline(y=1, color='black', linewidth=0.8, linestyle='-.')
@@ -173,7 +177,10 @@ ax2 = fig.add_subplot(132)
 for i in range(len(Rt_cons_sims)):
     ax2.plot(list(range(len(Rt_cons_sims[i]))), Rt_cons_sims[i], color='orange', linewidth=0.5, alpha=0.5)
     ax2.plot(list(range(len(Rt_trts_sims[i]))), Rt_trts_sims[i], color='grey', linewidth=0.5, alpha=0.5)
+    ax2.set_title('B')
     ax2.set_xlabel('Days after intervention')
+    ax2.text(0.05, 0.95, 'k = 0.4\nβ reduction = 20%', transform=ax2.transAxes, fontsize=17,
+        verticalalignment='top', bbox=props)
     ax2.set_xlim([0, 33])
     ax2.set_ylim([0, 2])
     ax2.axhline(y=1, color='black', linewidth=0.8, linestyle='-.')
@@ -253,7 +260,10 @@ ax3 = fig.add_subplot(133)
 for i in range(len(Rt_cons_sims)):
     ax3.plot(list(range(len(Rt_cons_sims[i]))), Rt_cons_sims[i], color='orange', linewidth=0.5, alpha=0.5)
     ax3.plot(list(range(len(Rt_trts_sims[i]))), Rt_trts_sims[i], color='grey', linewidth=0.5, alpha=0.5)
+    ax3.set_title('C')
     ax3.set_xlabel('Days after intervention')
+    ax3.text(0.05, 0.95, 'k = 0.1\nβ reduction = 20%', transform=ax3.transAxes, fontsize=17,
+        verticalalignment='top', bbox=props)
     ax3.set_xlim([0, 33])
     ax3.set_ylim([0, 2])
     ax3.axhline(y=1, color='black', linewidth=0.8, linestyle='-.')
